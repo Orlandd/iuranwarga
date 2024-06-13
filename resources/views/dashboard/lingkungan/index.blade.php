@@ -17,6 +17,7 @@
 
     <section class="container mx-6 my-4">
         <a href="/dashboard/lingkungans/create" class="px-4 py-2 bg-sky-500 rounded-full text-white">Tambah Kegiatan</a>
+        <a href="/dashboard/lingkungan/laporan/" class="px-4 py-2 bg-sky-500 rounded-full text-white">Laporan Kegiatan</a>
     </section>
 
     <section class="container px-3">
@@ -72,7 +73,6 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>

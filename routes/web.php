@@ -42,3 +42,6 @@ Route::get('/dashboard/tagihan/laporan/export', [TagihanController::class, 'expo
 Route::post('/dashboard/tagihan/warga/{id}', [TagihanController::class, 'filter']);
 Route::post('/dashboard/tagihan/warga', [TagihanController::class, 'listFilter']);
 Route::post('/dashboard/warga', [WargaController::class, 'rtFilter']);
+
+Route::get('/dashboard/lingkungan/laporan', [LingkunganController::class, 'laporan']);
+Route::get('/dashboard/lingkungan/laporan/export', [LingkunganController::class, 'export']);

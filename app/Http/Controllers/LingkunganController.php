@@ -6,6 +6,7 @@ use App\Models\Lingkungan;
 use App\Http\Requests\StoreLingkunganRequest;
 use App\Http\Requests\UpdateLingkunganRequest;
 use App\Models\RukunTetangga;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LingkunganController extends Controller
 {
@@ -59,7 +60,10 @@ class LingkunganController extends Controller
      */
     public function edit(Lingkungan $lingkungan)
     {
-        //
+        return view('dashboard.lingkungan.edit', [
+            'lingkungan' => $lingkungan,
+            'rts' => RukunTetangga::all()
+        ]);
     }
 
     /**
@@ -67,7 +71,15 @@ class LingkunganController extends Controller
      */
     public function update(UpdateLingkunganRequest $request, Lingkungan $lingkungan)
     {
-        //
+        $validate = $request->validate([
+            'nama' => ['required', 'string'],
+            'tanggal' => ['required'],
+            'rukun_tetangga_id' => ['required'],
+        ]);
+
+        $lingkungan->update($validate);
+
+        return redirect("/dashboard/lingkungans")->with("status", 'Kegiatan telah diperbarui!');
     }
 
     /**
@@ -76,5 +88,21 @@ class LingkunganController extends Controller
     public function destroy(Lingkungan $lingkungan)
     {
         //
+        $lingkungan->delete();
+        return redirect("/dashboard/lingkungans")->with("status", 'Kegiatan telah dihapus!');
+    }
+
+    public function laporan()
+    {
+        return view('dashboard.lingkungan.laporan', [
+            'lingkungans' => Lingkungan::with('rts')->get()
+        ]);
+    }
+
+    public function export()
+    {
+        $lingkungans = Lingkungan::with('rts')->get();
+        $pdf = Pdf::loadView('pdf.export-lingkungan', ['lingkungans' => $lingkungans]);
+        return $pdf->download('kegiatan.pdf');
     }
 }

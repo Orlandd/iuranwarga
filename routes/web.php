@@ -44,7 +44,12 @@ Route::get('/dashboard/tagihan/laporan', [TagihanController::class, 'laporan']);
 Route::get('/dashboard/tagihan/laporan/export', [TagihanController::class, 'export']);
 Route::post('/dashboard/tagihan/warga/{id}', [TagihanController::class, 'filter']);
 Route::post('/dashboard/tagihan/warga', [TagihanController::class, 'listFilter']);
+
 Route::post('/dashboard/warga/rt', [WargaController::class, 'rtFilter']);
 Route::get('/dashboard/warga/search/{query}', [WargaController::class, 'search']);
 Route::get('/dashboard/warga/laporan', [WargaController::class, 'laporan']);
 Route::get('/dashboard/warga/laporan/export/{rt}', [WargaController::class, 'export']);
+
+
+Route::get('/dashboard/lingkungan/laporan', [LingkunganController::class, 'laporan']);
+Route::get('/dashboard/lingkungan/laporan/export', [LingkunganController::class, 'export']);

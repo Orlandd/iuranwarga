@@ -260,7 +260,7 @@
                                 });
 
                                 const ctx = document.getElementById('agama').getContext('2d');
-                                pemasukanChart = new Chart(ctx, {
+                                agamaChart = new Chart(ctx, {
                                     type: 'pie',
                                     data: {
                                         labels: labels,
@@ -314,7 +314,7 @@
                                 });
 
                                 const ctx = document.getElementById('gender').getContext('2d');
-                                pemasukanChart = new Chart(ctx, {
+                                genderChart = new Chart(ctx, {
                                     type: 'doughnut',
                                     data: {
                                         labels: labels,
@@ -368,7 +368,7 @@
                                 });
 
                                 const ctx = document.getElementById('warga').getContext('2d');
-                                pemasukanChart = new Chart(ctx, {
+                                wargaChart = new Chart(ctx, {
                                     type: 'bar',
                                     data: {
                                         labels: labels,

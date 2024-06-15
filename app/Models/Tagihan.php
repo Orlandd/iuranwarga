@@ -13,6 +13,7 @@ class Tagihan extends Model
         'warga_id',
         'status',
         'nominal',
+        'jenis',
         'deskripsi',
         'tanggalBayar',
     ];

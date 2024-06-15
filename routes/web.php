@@ -17,6 +17,9 @@ Route::get('/', function () {
 Route::get('/dashboard',  [App\Http\Controllers\HomeController::class, 'index']);
 Route::post('/dashboard',  [App\Http\Controllers\HomeController::class, 'pengeluaran']);
 Route::post('/dashboard/pemasukan',  [App\Http\Controllers\HomeController::class, 'pemasukan']);
+Route::post('/dashboard/warga',  [App\Http\Controllers\HomeController::class, 'agama']);
+Route::post('/dashboard/gender',  [App\Http\Controllers\HomeController::class, 'gender']);
+Route::post('/dashboard/jumlahWarga',  [App\Http\Controllers\HomeController::class, 'warga']);
 
 Route::get('/login', function () {
     return view('login');
@@ -41,4 +44,7 @@ Route::get('/dashboard/tagihan/laporan', [TagihanController::class, 'laporan']);
 Route::get('/dashboard/tagihan/laporan/export', [TagihanController::class, 'export']);
 Route::post('/dashboard/tagihan/warga/{id}', [TagihanController::class, 'filter']);
 Route::post('/dashboard/tagihan/warga', [TagihanController::class, 'listFilter']);
-Route::post('/dashboard/warga', [WargaController::class, 'rtFilter']);
+Route::post('/dashboard/warga/rt', [WargaController::class, 'rtFilter']);
+Route::get('/dashboard/warga/search/{query}', [WargaController::class, 'search']);
+Route::get('/dashboard/warga/laporan', [WargaController::class, 'laporan']);
+Route::get('/dashboard/warga/laporan/export/{rt}', [WargaController::class, 'export']);

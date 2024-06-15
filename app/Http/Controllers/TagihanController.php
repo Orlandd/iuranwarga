@@ -43,6 +43,7 @@ class TagihanController extends Controller
             'warga_id' => ['required',],
             'nominal' => ['required', 'integer'],
             'deskripsi' => ['required'],
+            'jenis' => ['required'],
         ]);
 
         $validate['status'] = 'Belum';
@@ -66,7 +67,11 @@ class TagihanController extends Controller
      */
     public function edit(Tagihan $tagihan)
     {
-        //
+        $warga = Warga::find($tagihan->warga_id);
+        return view('dashboard.tagihan.edit', [
+            "tagihan" => $tagihan,
+            "warga" => $warga
+        ]);
     }
 
     /**
@@ -74,7 +79,20 @@ class TagihanController extends Controller
      */
     public function update(UpdateTagihanRequest $request, Tagihan $tagihan)
     {
-        //
+        // dd($tagihan);
+
+        $validate = $request->validate([
+            'nominal' => ['required', 'integer'],
+            'deskripsi' => ['required'],
+            'jenis' => ['required'],
+        ]);
+
+        $tagihan->nominal = $validate['nominal'];
+        $tagihan->deskripsi = $validate['deskripsi'];
+        $tagihan->jenis = $validate['jenis'];
+        $tagihan->save();
+
+        return redirect("/dashboard/tagihans")->with("status", 'Tagihan telah diupdate!');
     }
 
     /**
@@ -82,7 +100,9 @@ class TagihanController extends Controller
      */
     public function destroy(Tagihan $tagihan)
     {
-        //
+        $tagihan->delete();
+
+        return redirect("/dashboard/tagihans")->with("status", 'Tagihan telah dihapus!');
     }
 
     public function approve($id)

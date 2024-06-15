@@ -82,6 +82,9 @@
                                         Nama Warga</th>
                                     <th scope="col"
                                         class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                                        Jenis</th>
+                                    <th scope="col"
+                                        class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                                         Status</th>
                                     <th scope="col"
                                         class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
@@ -110,6 +113,10 @@
                                             <a href="/dashboard/tagihans/warga/{{ $tagihan->wargas->id }}">
                                                 {{ $tagihan->wargas->nama }}</a>
 
+                                        </td>
+                                        <td
+                                            class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+                                            {{ $tagihan->jenis }}
                                         </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">

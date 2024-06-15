@@ -6,6 +6,7 @@ use App\Models\Warga;
 use App\Http\Requests\StoreWargaRequest;
 use App\Http\Requests\UpdateWargaRequest;
 use App\Models\RukunTetangga;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -85,7 +86,10 @@ class WargaController extends Controller
      */
     public function show(Warga $warga)
     {
-        //
+        // dd(Warga::with('rts')->find($warga->id));
+        return view('dashboard.warga.show', [
+            'warga' => Warga::with('rts')->find($warga->id),
+        ]);
     }
 
     /**
@@ -93,7 +97,10 @@ class WargaController extends Controller
      */
     public function edit(Warga $warga)
     {
-        //
+        return view('dashboard.warga.edit', [
+            'warga' => $warga,
+            'rts' => RukunTetangga::all()
+        ]);
     }
 
     /**
@@ -101,7 +108,44 @@ class WargaController extends Controller
      */
     public function update(UpdateWargaRequest $request, Warga $warga)
     {
-        //
+        // dd($request);
+
+        $validate = $request->validate([
+            'nama' => ['required', 'string'],
+            'kk' => ['required', 'integer'],
+            'gender' => ['required',],
+            'agama' => ['required',],
+            'tempatLahir' => ['required', 'string'],
+            'tanggalLahir' => ['required',],
+            'rukun_tetangga_id' => ['required'],
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048'
+        ]);
+
+        if ($request->nik !== $warga->nik) {
+            $rule['nik'] = ['required', 'integer', 'unique:wargas,nik'];
+            $validatedData = $request->validate($rule);
+
+            $warga->nik = $request->nik;
+        }
+
+        if ($request->hasFile('image')) {
+            $imageName = $request->nama . '-' . $request->nik . '.' . $request->image->extension();
+            $request->image->move(public_path('storage/warga'), $imageName);
+        } else {
+            $imageName = $warga->image;
+        }
+
+        $warga->nama = $validate['nama'];
+        $warga->kk = $validate['kk'];
+        $warga->gender = $validate['gender'];
+        $warga->agama = $validate['agama'];
+        $warga->tempatLahir = $validate['tempatLahir'];
+        $warga->tanggalLahir = $validate['tanggalLahir'];
+        $warga->rukun_tetangga_id = $validate['rukun_tetangga_id'];
+        $warga->image = $imageName;
+        $warga->save();
+
+        return redirect("/dashboard/wargas")->with("status", 'Data warga telah diupdate!');
     }
 
     /**
@@ -109,7 +153,11 @@ class WargaController extends Controller
      */
     public function destroy(Warga $warga)
     {
-        //
+        $nama = $warga->nama;
+
+        $warga->delete();
+
+        return redirect("/dashboard/wargas")->with("status", 'Data warga ' . $nama . ' telah dihapus!');
     }
 
     public function rtFilter(Request $request)
@@ -121,5 +169,37 @@ class WargaController extends Controller
         }
 
         return response()->json($wargas);
+    }
+
+    public function search($query)
+    {
+        $wargas = Warga::with('rts')
+            ->where(function ($q) use ($query) {
+                $q->where('nama', 'LIKE', "%{$query}%")
+                    ->orWhere('nik', 'LIKE', "%{$query}%")
+                    ->orWhere('kk', 'LIKE', "%{$query}%");
+            })->get();
+
+        return response()->json($wargas);
+    }
+
+    public function laporan()
+    {
+        return view('dashboard.warga.laporan', [
+            'wargas' => Warga::with('rts')->get(),
+            'rts' => RukunTetangga::all()
+        ]);
+    }
+
+    public function export($rt)
+    {
+        if ($rt == 'all') {
+            $wargas = Warga::with('rts')->get();
+        } else {
+            $wargas = Warga::with('rts')->where('rukun_tetangga_id', $rt)->get();
+        }
+
+        $pdf = Pdf::loadView('pdf.export-warga', ['wargas' => $wargas]);
+        return $pdf->download('warga-' . $rt . '.pdf');
     }
 }

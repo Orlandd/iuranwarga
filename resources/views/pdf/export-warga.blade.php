@@ -19,13 +19,38 @@
     <!-- Custom styles for this template -->
     <!-- Custom styles for this template -->
 
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+    <style>
+        h3 {
+            text-align: center;
+        }
 
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        thead {
+            background-color: #d3d3d3;
+            /* Warna abu-abu */
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,68 +58,82 @@
     <div id="app">
         <main class="lg:ps-72 lg:my-0">
             <section class="container ">
-                <h3 class="text-3xl font-bold m-6 text-center">Laporan Pembayaran Warga</h3>
+                <h3 class="text-3xl font-bold m-6 text-center">Laporan Data Warga</h3>
             </section>
 
-            <section class="container px-3 ">
+            <section class="container px-3">
                 <div class=" flex flex-col w-full ">
                     <div class="m-1.5 overflow-x-auto">
                         <div class="p-1.5  inline-block align-middle">
-                            <div class="overflow-hidden">
-                                <table class=" divide-y divide-gray-200 dark:divide-neutral-700">
-                                    <thead>
+                            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                <table class=" min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                                    <thead class="bg-gray-50 dark:bg-gray-700">
                                         <tr>
                                             <th scope="col"
-                                                class="px-6 py-3 text-stalingkungan text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                Nama Warga</th>
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                                                Nama</th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                Status</th>
+                                                NIK</th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                Nominal</th>
+                                                No KK</th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                Deskripsi</th>
+                                                Gender</th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                Tanggal Bayar</th>
+                                                Agama</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                                                Tempat Lahir</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
+                                                Tanggal Lahir</th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                                                 RT</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                                        @foreach ($tagihans as $tagihan)
+                                    <tbody
+                                        class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
+                                        id='result'>
+                                        @foreach ($wargas as $warga)
                                             <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->wargas->nama }}
-
+                                                    {{ $warga->nama }}
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->status }}
+                                                    {{ $warga->nik }}
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->nominal }}
+                                                    {{ $warga->kk }}
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->deskripsi }}
+                                                    {{ $warga->gender }}
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->tanggalBayar }}
+                                                    {{ $warga->agama }}
                                                 </td>
                                                 <td
                                                     class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->wargas->rts->nama }}
+                                                    {{ $warga->tempatLahir }}
+                                                </td>
+                                                <td
+                                                    class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+                                                    {{ $warga->tanggalLahir }}
+                                                </td>
+                                                <td
+                                                    class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+                                                    {{ $warga->rts->nama }}
                                                 </td>
                                             </tr>
                                         @endforeach
-
                                     </tbody>
                                 </table>
                             </div>

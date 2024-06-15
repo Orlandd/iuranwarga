@@ -15,24 +15,15 @@
         </section>
     @endif
 
-
-
     <section class="container mx-auto my-4">
         <div class="mx-6">
-            <a href="/dashboard/wargas/create"
-                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white py-2 px-4 hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-500 dark:hover:bg-blue-400">Tambah
-                Warga</a>
-            <a href="/dashboard/warga/laporan/"
-                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-sky-300 text-white py-2 px-4 hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-500 dark:hover:bg-blue-400">Laporan
-                Data Warga</a>
+            <a id="exportLink" href="/dashboard/warga/laporan/export/all"
+                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white py-2 px-4 hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-500 dark:hover:bg-blue-400">Export
+                PDF</a>
             <br><br>
 
-            <input type="text" placeholder="cari nama / nik / kk" id="search"
-                class=" w-full py-3 px-4 mb-4 lg:mb-0 lg:mr-4 lg:w-1/2  border-2 border-yellow-500 rounded-full text-sm bg-white dark:bg-gray-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
-
-
             <select id="rt" name="rt"
-                class=" w-full py-3 px-4 mb-4 lg:mb-0 lg:mr-4 lg:w-1/4 border-2 border-yellow-500 rounded-full text-sm bg-white dark:bg-gray-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                class="w-full py-3 px-4 mb-4 lg:mb-0 lg:mr-4 lg:w-1/4 border-2 border-yellow-500 rounded-full text-sm bg-white dark:bg-gray-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                 <option selected="" value="all">Select RT</option>
                 @foreach ($rts as $rt)
                     <option value="{{ $rt->id }}">{{ $rt->nama }}</option>
@@ -73,9 +64,6 @@
                                     <th scope="col"
                                         class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                                         RT</th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                        Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
@@ -114,23 +102,8 @@
                                             class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
                                             {{ $warga->rts->nama }}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                            <a href="/dashboard/wargas/{{ $warga->id }}"
-                                                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400">Detail</a>
-                                            <a href="/dashboard/wargas/{{ $warga->id }}/edit"
-                                                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-600 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:text-yellow-500 dark:hover:text-yellow-400">Update</a>
-
-                                            <form action="/dashboard/wargas/{{ $warga->id }}" method="post"
-                                                class="inline-flex">
-                                                @method('delete')
-                                                @csrf
-                                                <button type="submit" onclick="return confirm('Are you sure delete ?')"
-                                                    class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">Delete</button>
-                                            </form>
-                                        </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>
@@ -155,7 +128,7 @@
                 console.log(rt);
 
                 $.ajax({
-                    url: "/dashboard/warga/rt",
+                    url: "/dashboard/warga",
                     method: 'POST',
                     data: {
                         rt: rt,
@@ -192,15 +165,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
                                             ${warga.rts.nama}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                            <a href="/dashboard/wargas/${warga.id}" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400">Detail</a>
-                                            <a href="/dashboard/wargas/${warga.id}/edit" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-600 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:text-yellow-500 dark:hover:text-yellow-400">Update</a>
-                                            <form action="/dashboard/wargas/${warga.id}" method="post" class="inline-flex">
-                                                @method('delete')
-                                                @csrf
-                                                <button type="submit" onclick="return confirm('Are you sure delete ?')" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">Delete</button>
-                                            </form>
-                                        </td>
+                                        
                                     </tr>
                                     `
                                 );
@@ -254,15 +219,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
                                             ${warga.rts.nama}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                            <a href="/dashboard/wargas/${warga.id}" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400">Detail</a>
-                                            <a href="/dashboard/wargas/${warga.id}/edit" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-600 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:text-yellow-500 dark:hover:text-yellow-400">Update</a>
-                                            <form action="/dashboard/wargas/${warga.id}" method="post" class="inline-flex">
-                                                @method('delete')
-                                                @csrf
-                                                <button type="submit" onclick="return confirm('Are you sure delete ?')" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">Delete</button>
-                                            </form>
-                                        </td>
+
                                     </tr>
                                     `);
                                 });
@@ -279,6 +236,14 @@
             });
 
 
+        });
+    </script>
+
+    <script>
+        document.getElementById('rt').addEventListener('change', function() {
+            var selectedValue = this.value;
+            var exportLink = document.getElementById('exportLink');
+            exportLink.href = '/dashboard/warga/laporan/export/' + selectedValue;
         });
     </script>
 @endsection

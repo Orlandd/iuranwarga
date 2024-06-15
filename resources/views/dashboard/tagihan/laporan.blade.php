@@ -45,9 +45,7 @@
                                     <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
-
-                                            <a href="/dashboard/tagihans/warga/{{ $tagihan->wargas->id }}">
-                                                {{ $tagihan->wargas->nama }}</a>
+                                            {{ $tagihan->wargas->nama }}
 
                                         </td>
                                         <td

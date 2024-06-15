@@ -6,6 +6,7 @@ use App\Models\Lingkungan;
 use App\Models\Pengeluaran;
 use App\Models\RukunTetangga;
 use App\Models\Tagihan;
+use App\Models\Warga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -95,5 +96,48 @@ class HomeController extends Controller
         // })->with('lingkungans.rts')->get();
 
         return response()->json($lingkungans);
+    }
+
+    public function agama(Request $request)
+    {
+        $id = $request->rt;
+
+        // Mengambil jumlah warga berdasarkan agama yang memiliki RT tertentu
+        $jumlahPerAgama = Warga::whereHas('rts', function ($query) use ($id) {
+            $query->where('id', $id); // Sesuaikan dengan nama kolom yang sesuai
+        })
+            ->select('agama', DB::raw('count(*) as jumlah'))
+            ->groupBy('agama')
+            ->get();
+
+        return response()->json($jumlahPerAgama);
+    }
+
+    public function gender(Request $request)
+    {
+        $id = $request->rt;
+
+        // Mengambil jumlah warga berdasarkan agama yang memiliki RT tertentu
+        $gender = Warga::whereHas('rts', function ($query) use ($id) {
+            $query->where('id', $id); // Sesuaikan dengan nama kolom yang sesuai
+        })
+            ->select('gender', DB::raw('count(*) as jumlah'))
+            ->groupBy('gender')
+            ->get();
+
+        return response()->json($gender);
+    }
+
+    public function warga(Request $request)
+    {
+        $id = $request->rt;
+
+        // Mengambil jumlah warga berdasarkan RT tertentu
+        $jumlah = Warga::with('rts') // Load relasi 'rts' dari model 'Warga'
+            ->select('rukun_tetangga_id', DB::raw('count(*) as jumlah')) // Memilih kolom 'nama' dari relasi 'rts' dan menghitung jumlah baris
+            ->groupBy('rukun_tetangga_id') // Mengelompokkan berdasarkan 'nama' dari relasi 'rts'
+            ->get(); // Mendapatkan hasil kueri
+
+        return response()->json($jumlah);
     }
 }

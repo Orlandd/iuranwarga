@@ -41,6 +41,13 @@
                     </div>
                 </div>
             </div>
+            <div
+                class="mt-5 flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg">
+                <h2 class="text-yellow-500 text-lg font-semibold mb-4">Jumlah Warga</h2>
+                <div class="w-full h-64 bg-white">
+                    <canvas id="warga" class="w-full mx-auto"></canvas>
+                </div>
+            </div>
         </div>
 
         <br>
@@ -69,6 +76,19 @@
                         <canvas id="pemasukan"></canvas>
                     </div>
                 </div>
+
+                <div class="flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg">
+                    <h2 class="text-yellow-500 text-lg font-semibold mb-4">Agama</h2>
+                    <div class="w-full h-64 bg-white">
+                        <canvas id="agama" class="mx-auto"></canvas>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg">
+                    <h2 class="text-yellow-500 text-lg font-semibold mb-4">Gender</h2>
+                    <div class="w-full h-64 bg-white">
+                        <canvas id="gender" class="mx-auto"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -86,6 +106,9 @@
             $(document).ready(function() {
                 let pengeluaranChart;
                 let pemasukanChart;
+                let agamaChart;
+                let genderChart;
+                let wargaChart;
 
                 function fetchAndRenderCharts(rt) {
                     $.ajax({
@@ -98,9 +121,6 @@
                             if (pengeluaranChart) {
                                 pengeluaranChart.destroy();
                             }
-
-
-
                             if (response.length > 0) {
                                 let labels = [];
                                 let data = [];
@@ -211,6 +231,182 @@
                                             }
                                         }
                                     }
+                                });
+                            }
+                        }
+                    });
+
+                    $.ajax({
+                        url: "/dashboard/warga",
+                        method: 'POST',
+                        data: {
+                            rt: rt
+                        },
+                        success: function(response) {
+                            if (agamaChart) {
+                                agamaChart.destroy();
+                            }
+
+                            console.log(
+                                response); // Memperbaiki log untuk menampilkan respons yang diterima
+
+                            if (response.length > 0) {
+                                let labels = [];
+                                let data = [];
+
+                                response.forEach(e => {
+                                    labels.push(e.agama);
+                                    data.push(e.jumlah);
+                                });
+
+                                const ctx = document.getElementById('agama').getContext('2d');
+                                pemasukanChart = new Chart(ctx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: 'Agama',
+                                            data: data,
+                                            borderWidth: 1
+                                        }]
+                                    },
+
+                                });
+                            } else {
+                                const ctx = document.getElementById('agama').getContext('2d');
+                                pemasukanChart = new Chart(ctx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: [],
+                                        datasets: [{
+                                            label: 'Agama',
+                                            data: [],
+                                            borderWidth: 1
+                                        }]
+                                    },
+
+                                });
+                            }
+                        }
+                    });
+
+                    $.ajax({
+                        url: "/dashboard/gender",
+                        method: 'POST',
+                        data: {
+                            rt: rt
+                        },
+                        success: function(response) {
+                            if (genderChart) {
+                                genderChart.destroy();
+                            }
+
+                            console.log(
+                                response); // Memperbaiki log untuk menampilkan respons yang diterima
+
+                            if (response.length > 0) {
+                                let labels = [];
+                                let data = [];
+
+                                response.forEach(e => {
+                                    labels.push(e.gender);
+                                    data.push(e.jumlah);
+                                });
+
+                                const ctx = document.getElementById('gender').getContext('2d');
+                                pemasukanChart = new Chart(ctx, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: 'Agama',
+                                            data: data,
+                                            borderWidth: 1
+                                        }]
+                                    },
+
+                                });
+                            } else {
+                                const ctx = document.getElementById('gender').getContext('2d');
+                                pemasukanChart = new Chart(ctx, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: [],
+                                        datasets: [{
+                                            label: 'Agama',
+                                            data: [],
+                                            borderWidth: 1
+                                        }]
+                                    },
+
+                                });
+                            }
+                        }
+                    });
+
+                    $.ajax({
+                        url: "/dashboard/jumlahWarga",
+                        method: 'POST',
+                        data: {
+                            rt: rt
+                        },
+                        success: function(response) {
+                            if (wargaChart) {
+                                wargaChart.destroy();
+                            }
+
+                            console.log(
+                                response); // Memperbaiki log untuk menampilkan respons yang diterima
+
+                            if (response.length > 0) {
+                                let labels = [];
+                                let data = [];
+
+                                response.forEach(e => {
+                                    labels.push(e.rts.nama);
+                                    data.push(e.jumlah);
+                                });
+
+                                const ctx = document.getElementById('warga').getContext('2d');
+                                pemasukanChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: labels,
+                                        datasets: [{
+                                            label: 'Warga',
+                                            data: data,
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+
+                                });
+                            } else {
+                                const ctx = document.getElementById('gender').getContext('2d');
+                                pemasukanChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: [],
+                                        datasets: [{
+                                            label: 'Warga',
+                                            data: [],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+
                                 });
                             }
                         }

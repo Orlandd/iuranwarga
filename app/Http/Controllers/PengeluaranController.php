@@ -9,6 +9,7 @@ use App\Models\Lingkungan;
 
 class PengeluaranController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -42,10 +43,9 @@ class PengeluaranController extends Controller
             'lingkungan_id' => ['required'],
         ]);
 
-
         Pengeluaran::create($validate);
 
-        return redirect("/dashboard/lingkungans")->with("status", 'Kegiatan baru telah ditambahkan!');
+        return redirect("/dashboard/pengeluarans")->with("status", 'Kegiatan baru telah ditambahkan!');
     }
 
     /**
@@ -61,7 +61,10 @@ class PengeluaranController extends Controller
      */
     public function edit(Pengeluaran $pengeluaran)
     {
-        //
+        return view('dashboard.pengeluaran.update', [
+            'pengeluaran' => $pengeluaran,
+            'lingkungans' => Lingkungan::all()
+        ]);
     }
 
     /**
@@ -69,7 +72,17 @@ class PengeluaranController extends Controller
      */
     public function update(UpdatePengeluaranRequest $request, Pengeluaran $pengeluaran)
     {
-        //
+        $validate = $request->validate([
+            'nama' => ['required', 'string'],
+            'nominal' => ['required', 'integer'],
+            'deskripsi' => ['required', 'string'],
+            'tanggal' => ['required',],
+            'lingkungan_id' => ['required'],
+        ]);
+
+        $pengeluaran->update($validate);
+
+        return redirect("/dashboard/pengeluarans")->with("status", 'Kegiatan telah diperbarui!');
     }
 
     /**
@@ -77,6 +90,8 @@ class PengeluaranController extends Controller
      */
     public function destroy(Pengeluaran $pengeluaran)
     {
-        //
+        $pengeluaran->delete();
+
+        return redirect("/dashboard/pengeluarans")->with("status", 'Kegiatan telah dihapus!');
     }
 }

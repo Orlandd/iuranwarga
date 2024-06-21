@@ -4,6 +4,7 @@ use App\Http\Controllers\LingkunganController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\RukunTetanggaController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WargaController;
 use App\Models\RukunTetangga;
 use App\Models\Tagihan;
@@ -36,6 +37,7 @@ Route::resource('/dashboard/wargas', WargaController::class);
 Route::resource('/dashboard/lingkungans', LingkunganController::class);
 Route::resource('/dashboard/pengeluarans', PengeluaranController::class);
 Route::resource('/dashboard/tagihans', TagihanController::class);
+Route::resource('/dashboard/users', UserController::class);
 
 
 Route::get('/dashboard/tagihans/approve/{id}', [TagihanController::class, 'approve']);

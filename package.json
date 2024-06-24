@@ -18,6 +18,7 @@
     },
     "dependencies": {
         "apexcharts": "^3.49.1",
+        "chart.js": "^4.4.3",
         "lodash": "^4.17.21",
         "preline": "^2.0.3"
     }

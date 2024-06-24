@@ -15,8 +15,36 @@ class PengeluaranController extends Controller
      */
     public function index()
     {
+        // return view('dashboard.pengeluaran.index', [
+        //     'pengeluarans' => Pengeluaran::with('lingkungans')->get()
+        // ]);
+
+        // Fetch all pengeluarans from all lingkungans
+        $pengeluarans = Pengeluaran::with('lingkungans')->get();
+
+        // Sum pengeluaran nominal by lingkungan
+        $groupedPengeluarans = $pengeluarans->groupBy('lingkungan_id')->map(function ($row) {
+            return $row->sum('nominal');
+        });
+
+        // Get 10 lingkungans
+        $latestLingkungans = Lingkungan::orderBy('tanggal', 'desc')->take(10)->get();
+
+        // For chart
+        $chartData = $latestLingkungans->map(function ($lingkungan) use ($groupedPengeluarans) {
+            return [
+                'nama' => $lingkungan->nama,
+                'total' => $groupedPengeluarans[$lingkungan->id] ?? 0,
+            ];
+        });
+
+        while (count($chartData) < 10) {
+            $chartData->push(['nama' => '', 'total' => 0]);
+        }
+
         return view('dashboard.pengeluaran.index', [
-            'pengeluarans' => Pengeluaran::with('lingkungans')->get()
+            'pengeluarans' => $pengeluarans,
+            'chartData' => $chartData
         ]);
     }
 

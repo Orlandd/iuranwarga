@@ -2,104 +2,91 @@
 <html lang="en" data-bs-theme="auto">
 
 <head>
-    <script src="../assets/js/color-modes.js"></script>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manajemen Lingkungan | Dashboard</title>
 
-    <title>Wijaya Kost | Dashboard</title>
-
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/" />
-
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" /> --}}
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
-
-    <!-- Custom styles for this template -->
-    <!-- Custom styles for this template -->
-
-    @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
-
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        h3 {
+            color: #343a40;
+            margin: 20px 0;
+        }
+
+        .table-container {
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e9ecef;
+        }
+    </style>
 </head>
 
 <body>
-
     <div id="app">
-        <main class="lg:ps-72 lg:my-0">
-            <section class="container ">
-                <h3 class="text-3xl font-bold m-6 text-center">Laporan Pembayaran Warga</h3>
+        <main class="container my-5">
+            <section class="text-center">
+                <h3 class="text-3xl font-bold">Laporan Pembayaran Warga</h3>
             </section>
 
-            <section class="container px-3 ">
-                <div class=" flex flex-col w-full ">
-                    <div class="m-1.5 overflow-x-auto">
-                        <div class="p-1.5  inline-block align-middle">
-                            <div class="overflow-hidden">
-                                <table class=" divide-y divide-gray-200 dark:divide-neutral-700">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-stalingkungan text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                Nama Warga</th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                Status</th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                Nominal</th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                Deskripsi</th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                Tanggal Bayar</th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                                RT</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                                        @foreach ($tagihans as $tagihan)
-                                            <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->wargas->nama }}
-
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->status }}
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->nominal }}
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->deskripsi }}
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->tanggalBayar }}
-                                                </td>
-                                                <td
-                                                    class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                                    {{ $tagihan->wargas->rts->nama }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+            <section class="table-container">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nama Warga</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Nominal</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Tanggal Bayar</th>
+                                <th scope="col">RT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($tagihans as $tagihan)
+                            <tr>
+                                <td>{{ $tagihan->wargas->nama }}</td>
+                                <td>{{ $tagihan->status }}</td>
+                                <td>{{ $tagihan->nominal }}</td>
+                                <td>{{ $tagihan->deskripsi }}</td>
+                                <td>{{ $tagihan->tanggalBayar }}</td>
+                                <td>{{ $tagihan->wargas->rts->nama }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </section>
         </main>
@@ -111,9 +98,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous">
     </script>
-    <!-- choose one -->
-
-
     <script src="/js/dashboard.js"></script>
 </body>
 

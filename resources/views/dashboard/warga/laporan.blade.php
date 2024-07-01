@@ -17,10 +17,15 @@
 
     <section class="container mx-auto my-4">
         <div class="mx-6">
-            <a id="exportLink" href="/dashboard/warga/laporan/export/all"
-                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white py-2 px-4 hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-500 dark:hover:bg-blue-400">Export
-                PDF</a>
-            <br><br>
+            {{-- <a id="exportLink" href="/dashboard/warga/laporan/export/all"
+                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white py-2 px-4 hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-500 dark:hover:bg-blue-400">Export PDF</a>
+                <a id="exportLink" href="/dashboard/warga/laporan/export/all"
+                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white py-2 px-4 hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-500 dark:hover:bg-blue-400">Export Excel</a>
+            <br><br> --}}
+            <a id="exportPDFLink" href="{{ route('export.pdf', ['rt' => 'all']) }}"
+                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white py-2 px-4 hover:bg-blue-800">Export PDF</a>
+             <a id="exportExcelLink" href="{{ route('export.excel', ['rt' => 'all']) }}"
+                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white py-2 px-4 hover:bg-green-800">Export Excel</a>
 
             <select id="rt" name="rt"
                 class="w-full py-3 px-4 mb-4 lg:mb-0 lg:mr-4 lg:w-1/4 border-2 border-yellow-500 rounded-full text-sm bg-white dark:bg-gray-800 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
@@ -175,6 +180,10 @@
                                 `<div class="text-3xl text-center mt-5 mx-auto">Data Tidak Ditemukan!</div>`
                             );
                         }
+
+                        // Update export links
+                        $('#exportPDFLink').attr('href', '/dashboard/warga/export/pdf/' + rt);
+                        $('#exportExcelLink').attr('href', '/dashboard/warga/export/excel/' + rt);
                     }
                 });
             });

@@ -6,7 +6,9 @@ use App\Models\Warga;
 use App\Http\Requests\StoreWargaRequest;
 use App\Http\Requests\UpdateWargaRequest;
 use App\Models\RukunTetangga;
+use App\Exports\WargaExport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -191,7 +193,29 @@ class WargaController extends Controller
         ]);
     }
 
-    public function export($rt)
+    // public function exportPDF($rt)
+    // {
+    //     if ($rt == 'all') {
+    //         $wargas = Warga::with('rts')->get();
+    //     } else {
+    //         $wargas = Warga::with('rts')->where('rukun_tetangga_id', $rt)->get();
+    //     }
+
+    //     $pdf = Pdf::loadView('pdf.export-warga', ['wargas' => $wargas]);
+    //     return $pdf->download('warga-' . $rt . '.pdf');
+    // }
+
+    // public function exportExcel($rt)
+    // {
+    //     if ($rt == 'all') {
+    //         $wargas = Warga::with('rts')->get();
+    //     } else {
+    //         $wargas = Warga::with('rts')->where('rukun_tetangga_id', $rt)->get();
+    //     }
+    //     return Excel::download(new WargaExport($wargas), 'warga-' . $rt . '.xlsx');
+    // }
+
+    public function exportPDF($rt)
     {
         if ($rt == 'all') {
             $wargas = Warga::with('rts')->get();
@@ -200,6 +224,18 @@ class WargaController extends Controller
         }
 
         $pdf = Pdf::loadView('pdf.export-warga', ['wargas' => $wargas]);
-        return $pdf->download('warga-' . $rt . '.pdf');
+        return $pdf->download('warga-RT' . $rt . '.pdf');
+    }
+
+    public function exportExcel($rt)
+    {
+        if ($rt == 'all') {
+            $wargas = Warga::with('rts')->get();
+        } else {
+            $wargas = Warga::with('rts')->where('rukun_tetangga_id', $rt)->get();
+        }
+
+        // $wargas = $this->getWargaDataByRT($rt);
+        return Excel::download(new WargaExport($wargas), 'warga-RT' . $rt . '.xlsx');
     }
 }

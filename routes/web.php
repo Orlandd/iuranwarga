@@ -51,7 +51,8 @@ Route::post('/dashboard/tagihan/warga', [TagihanController::class, 'listFilter']
 Route::post('/dashboard/warga/rt', [WargaController::class, 'rtFilter']);
 Route::get('/dashboard/warga/search/{query}', [WargaController::class, 'search']);
 Route::get('/dashboard/warga/laporan', [WargaController::class, 'laporan']);
-Route::get('/dashboard/warga/laporan/export/{rt}', [WargaController::class, 'export']);
+Route::get('/dashboard/warga/export/pdf/{rt}', [WargaController::class, 'exportPDF'])->name('export.pdf');
+Route::get('/dashboard/warga/export/excel/{rt}', [WargaController::class, 'exportExcel'])->name('export.excel');
 
 
 Route::get('/dashboard/lingkungan/laporan', [LingkunganController::class, 'laporan']);

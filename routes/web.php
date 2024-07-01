@@ -43,7 +43,8 @@ Route::resource('/dashboard/users', UserController::class);
 Route::get('/dashboard/tagihans/approve/{id}', [TagihanController::class, 'approve']);
 Route::get('/dashboard/tagihans/warga/{id}', [TagihanController::class, 'warga']);
 Route::get('/dashboard/tagihan/laporan', [TagihanController::class, 'laporan']);
-Route::get('/dashboard/tagihan/laporan/export', [TagihanController::class, 'export']);
+Route::get('/dashboard/tagihan/laporan/exportpdf', [TagihanController::class, 'exportPDF']);
+Route::get('/dashboard/tagihan/laporan/exportexcel', [TagihanController::class, 'exportExcel']);
 Route::post('/dashboard/tagihan/warga/{id}', [TagihanController::class, 'filter']);
 Route::post('/dashboard/tagihan/warga', [TagihanController::class, 'listFilter']);
 

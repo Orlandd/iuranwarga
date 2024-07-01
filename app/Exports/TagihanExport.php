@@ -47,7 +47,7 @@ class TagihanExport implements FromCollection, WithHeadings, WithMapping
     {
         return [
             $tagihan->id,
-            $tagihan->wargas->nama, // atau $tagihan->warga->nama tergantung relasi
+            $tagihan->wargas->nama,
             $tagihan->nominal,
             $tagihan->deskripsi,
             $tagihan->jenis,

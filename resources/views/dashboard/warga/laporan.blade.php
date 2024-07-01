@@ -128,7 +128,7 @@
                 console.log(rt);
 
                 $.ajax({
-                    url: "/dashboard/warga",
+                    url: "/dashboard/warga/rt",
                     method: 'POST',
                     data: {
                         rt: rt,
@@ -165,7 +165,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
                                             ${warga.rts.nama}
                                         </td>
-                                        
+
                                     </tr>
                                     `
                                 );

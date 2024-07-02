@@ -7,8 +7,10 @@ use App\Http\Requests\StoreTagihanRequest;
 use App\Http\Requests\UpdateTagihanRequest;
 use App\Models\RukunTetangga;
 use App\Models\Warga;
+use App\Exports\TagihanExport;
 use DateTime;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 class TagihanController extends Controller
@@ -146,11 +148,17 @@ class TagihanController extends Controller
         ]);
     }
 
-    public function export()
+    public function exportPDF()
     {
         $tagihans = Tagihan::with('wargas.rts')->get();
         $pdf = Pdf::loadView('pdf.export-pembayaran', ['tagihans' => $tagihans]);
         return $pdf->download('pembayaran.pdf');
+    }
+
+    public function exportExcel()
+    {
+        $tagihans = Tagihan::with('wargas.rts')->get();
+        return Excel::download(new TagihanExport($tagihans), 'pembayaran.xlsx');
     }
 
     public function filter(Request $request)

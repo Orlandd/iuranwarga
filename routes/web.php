@@ -43,15 +43,20 @@ Route::resource('/dashboard/users', UserController::class);
 Route::get('/dashboard/tagihans/approve/{id}', [TagihanController::class, 'approve']);
 Route::get('/dashboard/tagihans/warga/{id}', [TagihanController::class, 'warga']);
 Route::get('/dashboard/tagihan/laporan', [TagihanController::class, 'laporan']);
-Route::get('/dashboard/tagihan/laporan/export', [TagihanController::class, 'export']);
+Route::get('/dashboard/tagihan/laporan/exportpdf', [TagihanController::class, 'exportPDF']);
+Route::get('/dashboard/tagihan/laporan/exportexcel', [TagihanController::class, 'exportExcel']);
 Route::post('/dashboard/tagihan/warga/{id}', [TagihanController::class, 'filter']);
 Route::post('/dashboard/tagihan/warga', [TagihanController::class, 'listFilter']);
 
 Route::post('/dashboard/warga/rt', [WargaController::class, 'rtFilter']);
 Route::get('/dashboard/warga/search/{query}', [WargaController::class, 'search']);
 Route::get('/dashboard/warga/laporan', [WargaController::class, 'laporan']);
-Route::get('/dashboard/warga/laporan/export/{rt}', [WargaController::class, 'export']);
+Route::get('/dashboard/warga/export/pdf/{rt}', [WargaController::class, 'exportPDF'])->name('export.pdf');
+Route::get('/dashboard/warga/export/excel/{rt}', [WargaController::class, 'exportExcel'])->name('export.excel');
 
 
 Route::get('/dashboard/lingkungan/laporan', [LingkunganController::class, 'laporan']);
 Route::get('/dashboard/lingkungan/laporan/export', [LingkunganController::class, 'export']);
+
+
+Route::get('/dashboard/pengeluaran/export', [PengeluaranController::class, 'export']);

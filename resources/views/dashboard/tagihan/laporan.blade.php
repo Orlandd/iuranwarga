@@ -7,10 +7,19 @@
         <h3 class="text-3xl font-bold m-6 text-center">Laporan Pembayaran Warga</h3>
     </section>
 
+    {{-- <section class="container mx-6 my-4">
+
+        <a href="/dashboard/tagihan/laporan/exportpdf" class="px-4 py-2 bg-sky-500 rounded-full text-white"> Export PDF</a>
+    </section>
     <section class="container mx-6 my-4">
 
-        <a href="/dashboard/tagihan/laporan/export" class="px-4 py-2 bg-sky-500 rounded-full text-white"> Export PDF</a>
+        <a href="/dashboard/tagihan/laporan/exportexcel" class="px-4 py-2 bg-sky-500 rounded-full text-white"> Export Excel</a>
+    </section> --}}
+    <section class="container mx-6 my-4 flex">
+        <a href="/dashboard/tagihan/laporan/exportpdf" class="px-4 py-2 bg-sky-500 rounded-full text-white mr-4">Export PDF</a>
+        <a href="/dashboard/tagihan/laporan/exportexcel" class="px-4 py-2 bg-sky-500 rounded-full text-white">Export Excel</a>
     </section>
+
 
     <section class="container px-3 ">
         <div class=" flex flex-col w-full ">

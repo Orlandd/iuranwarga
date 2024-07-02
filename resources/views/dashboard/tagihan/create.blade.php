@@ -37,7 +37,7 @@
 
             </select><br>
 
-            <label for="jenis">Jenis</label><br>
+            <label for="jenis">Jenis Tagihan</label><br>
             @error('jenis')
                 <span class="text-sm text-red-500" role="alert">
                     <strong>{{ $message }}</strong>

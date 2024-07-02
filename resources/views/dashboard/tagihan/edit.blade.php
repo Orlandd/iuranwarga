@@ -32,7 +32,7 @@
             <input type="text" name="warga_id" id="warga_id" disabled value="{{ $warga->nama }}"
                 class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"><br>
 
-            <label for="jenis">Jenis</label><br>
+            <label for="jenis">Jenis Tagihan</label><br>
             @error('jenis')
                 <span class="text-sm text-red-500" role="alert">
                     <strong>{{ $message }}</strong>

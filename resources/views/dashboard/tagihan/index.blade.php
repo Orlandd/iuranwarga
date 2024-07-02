@@ -82,7 +82,7 @@
                                         Nama Warga</th>
                                     <th scope="col"
                                         class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                        Jenis</th>
+                                        Jenis Tagihan</th>
                                     <th scope="col"
                                         class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                                         Status</th>
@@ -207,19 +207,19 @@
                                     </td>
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                        ${tagihan.status} 
+                                        ${tagihan.status}
                                     </td>
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                        ${tagihan.nominal} 
+                                        ${tagihan.nominal}
                                     </td>
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                        ${tagihan.deskripsi} 
+                                        ${tagihan.deskripsi}
                                     </td>
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                        ${tagihan.tanggalBayar} 
+                                        ${tagihan.tanggalBayar}
                                     </td>
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">

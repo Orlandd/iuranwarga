@@ -30,11 +30,11 @@ class TagihanExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            'ID',
+            'ID Tagihan',
             'Warga',
             'Nominal',
             'Deskripsi',
-            'Jenis',
+            'Jenis Tagihan',
             'Status',
             'Tanggal Bayar'
         ];

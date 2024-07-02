@@ -44,8 +44,8 @@
             <div
                 class="mt-5 flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg">
                 <h2 class="text-yellow-500 text-lg font-semibold mb-4">Jumlah Warga</h2>
-                <div class="w-full h-64 bg-white">
-                    <canvas id="warga" class="w-full mx-auto"></canvas>
+                <div class="w-full bg-white">
+                    <canvas id="warga" class="md:w-full mx-auto"></canvas>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
         <br>
         <hr class="mt-8">
         <div class="container mx-auto px-4 mt-8" id="data">
-            <h4 class="text-2xl font-semibold text-black mb-6 text-left">Data</h4>
+            <h4 class="text-2xl font-semibold text-black mb-6 text-left">Data RT</h4>
             <select id="rt"
                 class="py-3 px-4 pe-9 block lg:w-1/2 w-full border-2 border-yellow-500 rounded-full text-sm bg-white dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
                 @foreach ($rts as $rt)

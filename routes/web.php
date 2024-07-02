@@ -57,3 +57,6 @@ Route::get('/dashboard/warga/export/excel/{rt}', [WargaController::class, 'expor
 
 Route::get('/dashboard/lingkungan/laporan', [LingkunganController::class, 'laporan']);
 Route::get('/dashboard/lingkungan/laporan/export', [LingkunganController::class, 'export']);
+
+
+Route::get('/dashboard/pengeluaran/export', [PengeluaranController::class, 'export']);

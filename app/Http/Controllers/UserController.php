@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -83,7 +84,7 @@ class UserController extends Controller
 
         if (isset($request->newpassword)) {
 
-            if (Hash::make($request->password) !== auth()->user()->password) {
+            if (!Auth::attempt(['email' => auth()->user()->email, 'password' => $request->password])) {
                 return redirect("/dashboard/users/" . auth()->user()->id . "/edit")->with("status", 'Password lama salah!');
             }
 

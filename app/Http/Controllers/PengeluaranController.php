@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Pengeluaran;
 use App\Http\Requests\StorePengeluaranRequest;
 use App\Http\Requests\UpdatePengeluaranRequest;
@@ -122,4 +123,12 @@ class PengeluaranController extends Controller
 
         return redirect("/dashboard/pengeluarans")->with("status", 'Kegiatan telah dihapus!');
     }
+
+    public function export()
+    {
+        $pengeluarans = Pengeluaran::with('lingkungans')->get();
+        $pdf = PDF::loadView('pdf.export-pengeluaran', ['pengeluarans' => $pengeluarans]);
+        return $pdf->download('pengeluaran.pdf');
+    }
+
 }

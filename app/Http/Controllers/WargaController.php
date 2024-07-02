@@ -223,9 +223,12 @@ class WargaController extends Controller
             $wargas = Warga::with('rts')->where('rukun_tetangga_id', $rt)->get();
         }
 
-        $pdf = Pdf::loadView('pdf.export-warga', ['wargas' => $wargas]);
+        $pdf = Pdf::loadView('pdf.export-warga', ['wargas' => $wargas])
+            ->setPaper('a4', 'landscape'); // Set the paper size and orientation
+
         return $pdf->download('warga-RT' . $rt . '.pdf');
     }
+
 
     public function exportExcel($rt)
     {

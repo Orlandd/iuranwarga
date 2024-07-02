@@ -18,7 +18,7 @@
             @csrf
             @method('PUT')
 
-            <label for="nama">Nama</label><br>
+            <label for="nama">Jenis Pengeluaran</label><br>
             @error('nama')
                 <span class="text-sm text-red-500" role="alert">
                     <strong>{{ $message }}</strong>

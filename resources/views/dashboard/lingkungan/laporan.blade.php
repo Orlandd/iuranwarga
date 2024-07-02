@@ -6,7 +6,8 @@
     </section>
 
     <section class="container mx-6 my-4">
-        <a href="/dashboard/lingkungan/laporan/export" class="px-4 py-2 bg-sky-500 rounded-full text-white"> Export PDF</a>
+        <a href="/dashboard/lingkungan/laporan/export/pdf" class="px-4 py-2 bg-red-500 rounded-full text-white"> Export PDF</a>
+        <a href="/dashboard/lingkungan/laporan/export/excel" class="px-4 py-2 bg-green-500 rounded-full text-white"> Export Excel</a>
     </section>
 
     <section class="container px-3 ">
@@ -22,7 +23,7 @@
                                         Nama Kegiatan</th>
                                     <th scope="col"
                                         class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                        Tanggal</th>
+                                        Tanggal Kegiatan</th>
                                     <th scope="col"
                                         class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                                         RT</th>

@@ -6,7 +6,9 @@ use App\Models\Lingkungan;
 use App\Http\Requests\StoreLingkunganRequest;
 use App\Http\Requests\UpdateLingkunganRequest;
 use App\Models\RukunTetangga;
+use App\Exports\LingkunganExport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LingkunganController extends Controller
 {
@@ -99,10 +101,16 @@ class LingkunganController extends Controller
         ]);
     }
 
-    public function export()
+    public function exportPDF()
     {
         $lingkungans = Lingkungan::with('rts')->get();
         $pdf = Pdf::loadView('pdf.export-lingkungan', ['lingkungans' => $lingkungans]);
         return $pdf->download('kegiatan.pdf');
+    }
+
+    public function exportExcel()
+    {
+        $lingkungans = Lingkungan::with('rts')->get();
+        return Excel::download(new LingkunganExport($lingkungans), 'kegiatan.xlsx');
     }
 }

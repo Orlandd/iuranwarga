@@ -30,7 +30,7 @@
                                 <tr>
                                     <th scope="col"
                                         class="px-6 py-3 text-stalingkungan text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
-                                        Nama</th>
+                                        Kegiatan</th>
                                     <th scope="col"
                                         class="px-6 py-3 text-stalingkungan text-xs font-medium text-gray-500 uppercase dark:text-neutral-500">
                                         Tanggal Kegiatan</th>

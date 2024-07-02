@@ -59,4 +59,5 @@ Route::get('/dashboard/lingkungan/laporan', [LingkunganController::class, 'lapor
 Route::get('/dashboard/lingkungan/laporan/export', [LingkunganController::class, 'export']);
 
 
-Route::get('/dashboard/pengeluaran/export', [PengeluaranController::class, 'export']);
+Route::get('/dashboard/pengeluaran/export/pdf', [PengeluaranController::class, 'exportPDF']);
+Route::get('/dashboard/pengeluaran/export/excel', [PengeluaranController::class, 'exportExcel']);

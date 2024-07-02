@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Pengeluaran;
 use App\Http\Requests\StorePengeluaranRequest;
 use App\Http\Requests\UpdatePengeluaranRequest;
 use App\Models\Lingkungan;
+use App\Exports\PengeluaranExport;
 
 class PengeluaranController extends Controller
 {
@@ -124,11 +126,15 @@ class PengeluaranController extends Controller
         return redirect("/dashboard/pengeluarans")->with("status", 'Kegiatan telah dihapus!');
     }
 
-    public function export()
+    public function exportPDF()
     {
         $pengeluarans = Pengeluaran::with('lingkungans')->get();
         $pdf = PDF::loadView('pdf.export-pengeluaran', ['pengeluarans' => $pengeluarans]);
         return $pdf->download('pengeluaran.pdf');
     }
 
+    public function exportExcel()
+    {
+        return Excel::download(new PengeluaranExport, 'pengeluaran.xlsx');
+    }
 }

@@ -20,7 +20,7 @@
         <form action="/dashboard/pengeluarans/" class="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800 m-3" method="post"
             enctype="multipart/form-data">
             @csrf
-            <label for="nama">Nama</label><br>
+            <label for="nama">Jenis Pengeluaran</label><br>
             @error('nama')
                 <span class="text-sm text-red-500" role="alert">
                     <strong>{{ $message }}</strong>

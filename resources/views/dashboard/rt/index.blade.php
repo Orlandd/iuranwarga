@@ -17,8 +17,8 @@
 
     <section class="container mx-6 my-4">
         <a href="/dashboard/rukun-tetanggas/create" class="px-4 py-2 bg-sky-500 rounded-full text-white">Tambah RT</a>
-        <a href="/dashboard/rukun-tetanggas/pdf" class="px-4 py-2 bg-red-500 rounded-full text-white"> Export PDF</a>
-        <a href="/dashboard/rukun-tetanggas/excel" class="px-4 py-2 bg-green-500 rounded-full text-white"> Export Excel</a>
+        <a href="/dashboard/rukun-tetanggas/export/pdf" class="px-4 py-2 bg-red-500 rounded-full text-white"> Export PDF</a>
+        <a href="/dashboard/rukun-tetanggas/export/excel" class="px-4 py-2 bg-green-500 rounded-full text-white"> Export Excel</a>
     </section>
 
     <section class="container px-3 mt-10">

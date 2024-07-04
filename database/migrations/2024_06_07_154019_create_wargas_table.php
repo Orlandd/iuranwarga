@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('agama');
             $table->date('tanggalLahir');
             $table->string('tempatLahir');
-            $table->unsignedBigInteger('rukun_tetangga_id');
-            $table->foreign('rukun_tetangga_id')->references('id')->on('rukun_tetanggas')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('rukun_tetangga_id')->nullable();
+            $table->foreign('rukun_tetangga_id')->references('id')->on('rukun_tetanggas')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
         });
     }

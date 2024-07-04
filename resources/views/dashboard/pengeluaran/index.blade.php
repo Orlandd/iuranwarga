@@ -17,8 +17,18 @@
 
     <section class="container my-4">
         <a href="/dashboard/pengeluarans/create" class="px-4 py-2 bg-sky-500 rounded-full text-white">Tambah Pengeluaran</a>
-        <a href="/dashboard/pengeluaran/export/pdf" class="px-4 py-2 bg-red-500 rounded-full text-white"> Export PDF</a>
-        <a href="/dashboard/pengeluaran/export/excel" class="px-4 py-2 bg-green-500 rounded-full text-white"> Export Excel</a>
+        <a href="/dashboard/pengeluaran/export/pdf" class="px-4 py-2 bg-red-500 rounded-full text-white">Export PDF</a>
+        <a href="/dashboard/pengeluaran/export/excel" class="px-4 py-2 bg-green-500 rounded-full text-white">Export Excel</a>
+
+    </section>
+    <section class="container mx-auto">
+        <label for="selectRt" class="mr-2">Pilih RT:</label>
+        <select id="selectRt" class="px-4 py-2 border rounded-full">
+            <option value="all">Semua RT</option>
+            @foreach ($rts as $rt)
+                <option value="{{ $rt->id }}">{{ $rt->nama }}</option>
+            @endforeach
+        </select>
     </section>
 
     {{-- Chart --}}
@@ -60,9 +70,9 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody id="pengeluaranTableBody" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                     @foreach ($pengeluarans as $pengeluaran)
-                        <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
+                        <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700" data-rt="{{ $pengeluaran->lingkungans->rts->id }}">
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
                                 {{ $pengeluaran->nama }}
                             </td>
@@ -107,14 +117,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const ctx = document.getElementById('pengeluaranChart').getContext('2d');
-            const chartData = @json($chartData);
-            const labels = chartData.map(data => data.nama || 'n/a');
-            const totals = chartData.map(data => data.total);
+            const initialChartData = @json($chartData);
+            const labels = initialChartData.map(data => data.nama || 'n/a');
+            const totals = initialChartData.map(data => data.total);
 
             const maxTotal = Math.max(...totals);
             const maxY = Math.ceil(maxTotal / 1000000) * 1000000 + 1000000;
 
-            new Chart(ctx, {
+            const pengeluaranChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: labels,
@@ -140,6 +150,44 @@
                         }
                     },
                     maintainAspectRatio: false
+                }
+            });
+
+            document.getElementById('selectRt').addEventListener('change', function () {
+                const selectedRt = this.value;
+                const filteredData = selectedRt === 'all'
+                    ? initialChartData
+                    : initialChartData.filter(data => data.rt_id == selectedRt);
+
+                pengeluaranChart.data.labels = filteredData.map(data => data.nama || 'n/a');
+                pengeluaranChart.data.datasets[0].data = filteredData.map(data => data.total);
+
+                const newMaxTotal = Math.max(...pengeluaranChart.data.datasets[0].data);
+                const newMaxY = Math.ceil(newMaxTotal / 1000000) * 1000000 + 1000000;
+
+                pengeluaranChart.options.scales.y.suggestedMax = newMaxY;
+
+                pengeluaranChart.update();
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectRt = document.getElementById('selectRt');
+            const tableBody = document.getElementById('pengeluaranTableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+
+            selectRt.addEventListener('change', function () {
+                const selectedRt = this.value;
+                for (let i = 0; i < rows.length; i++) {
+                    const row = rows[i];
+                    const rtId = row.getAttribute('data-rt');
+                    if (selectedRt === 'all' || rtId === selectedRt) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
                 }
             });
         });

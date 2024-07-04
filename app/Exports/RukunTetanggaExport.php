@@ -19,19 +19,14 @@ class RukunTetanggaExport implements FromCollection, WithHeadings, WithMapping, 
         return RukunTetangga::with('warga')->get();
     }
 
-    public function __construct($rukunTetangga)
-    {
-        $this->RukunTetangga = $rukunTetangga;
-    }
-
     /**
      * @return array
      */
     public function headings(): array
     {
         return [
-            'Nama',
-            'RT'
+            'Nama RT',
+            'Nama Ketua RT'
         ];
     }
 
@@ -42,7 +37,7 @@ class RukunTetanggaExport implements FromCollection, WithHeadings, WithMapping, 
     {
         return [
             $rukunTetangga->nama,
-            $rukunTetangga->rts
+            optional($rukunTetangga->warga->first())->nama ?? 'Tidak ada Ketua'
         ];
     }
 
@@ -52,8 +47,8 @@ class RukunTetanggaExport implements FromCollection, WithHeadings, WithMapping, 
     public function columnFormats(): array
     {
         return [
-            'B' => NumberFormat::FORMAT_TEXT, // Format kolom NIK sebagai teks
-            'C' => NumberFormat::FORMAT_TEXT, // Format kolom No KK sebagai teks
+            'A' => NumberFormat::FORMAT_TEXT, // Format kolom Nama RT sebagai teks
+            'B' => NumberFormat::FORMAT_TEXT, // Format kolom Nama Ketua RT sebagai teks
         ];
     }
 }

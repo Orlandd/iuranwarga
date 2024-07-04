@@ -114,7 +114,7 @@ class RukunTetanggaController extends Controller
 
     public function exportExcel()
     {
-        return Excel::download(new RukunTetanggaExport(RukunTetangga::all()), 'rukun_tetangga.xlsx');
+        return Excel::download(new RukunTetanggaExport(), 'rukun_tetangga.xlsx');
     }
 
     /**

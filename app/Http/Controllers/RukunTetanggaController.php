@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateRukunTetanggaRequest;
 use App\Models\Lingkungan;
 use App\Models\Pengeluaran;
 use App\Models\Warga;
+use App\Exports\RukunTetanggaExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -114,7 +115,7 @@ class RukunTetanggaController extends Controller
     public function exportExcel()
     {
         $rukunTetangga = RukunTetangga::with('wargas.rts')->get();
-        return Excel::download(new RukunTetanggaExport($rukunTetangga), 'RT.xlsx');
+        return Excel::download(new RukunTetanggaExport($rukunTetangga), 'rukun_tetangga.xlsx');
     }
 
     /**

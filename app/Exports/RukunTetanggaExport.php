@@ -19,6 +19,11 @@ class RukunTetanggaExport implements FromCollection, WithHeadings, WithMapping, 
         return RukunTetangga::with('rt')->get();
     }
 
+    public function __construct($rukunTetangga)
+    {
+        $this->RukunTetangga = $rukunTetangga;
+    }
+
     /**
      * @return array
      */

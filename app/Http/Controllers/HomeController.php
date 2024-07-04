@@ -67,12 +67,12 @@ class HomeController extends Controller
 
         $id = $request->rt;
 
-
         // Query to get the sum of 'nominal' grouped by month and year for the given RTS id
         $pemasukan = Tagihan::with('wargas.rts')
             ->whereHas('wargas.rts', function ($query) use ($id) {
                 $query->where('id', $id);
             })
+            ->where('status', 'sudah')
             ->select(DB::raw('YEAR(created_at) as year'), DB::raw('MONTH(created_at) as month'), DB::raw('SUM(nominal) as total_nominal'))
             ->groupBy(DB::raw('YEAR(created_at)'), DB::raw('MONTH(created_at)'))
             ->get();

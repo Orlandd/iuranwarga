@@ -42,8 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/tagihan/laporan', [TagihanController::class, 'laporan']);
     Route::get('/dashboard/tagihan/laporan/exportpdf', [TagihanController::class, 'exportPDF']);
     Route::get('/dashboard/tagihan/laporan/exportexcel', [TagihanController::class, 'exportExcel']);
-    Route::post('/dashboard/tagihan/warga/{id}', [TagihanController::class, 'filter']);
-    Route::post('/dashboard/tagihan/warga', [TagihanController::class, 'listFilter']);
+    Route::post('/dashboard/tagihans/filter', [TagihanController::class, 'listFilter'])->name('tagihans.filter');
 
     Route::post('/dashboard/warga/rt', [WargaController::class, 'rtFilter']);
     Route::get('/dashboard/warga/search/{query}', [WargaController::class, 'search']);

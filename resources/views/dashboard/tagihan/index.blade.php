@@ -25,8 +25,8 @@
         <form id="filterForm" class="w-full md:w-3/4 md:grid-cols-4 grid grid-cols-1 gap-2 my-6">
             <div class="form-group grid grid-cols-2 w-20">
                 <label for="rt">RT:</label>
-                <select class="w-36 px-6 py-2 border-blue-400 border-2 rounded-lg ml-5" id="rt" name="rt"
-                    required>
+                <select class="w-36 px-6 py-2 border-blue-400 border-2 rounded-lg ml-5" id="rt" name="rt">
+                    <option value="">None</option>
                     @foreach ($rts as $rt)
                         <option value="{{ $rt->id }}">{{ $rt->nama }}</option>
                     @endforeach
@@ -34,8 +34,8 @@
             </div>
             <div class="form-group grid grid-cols-2 w-20">
                 <label for="status">Status:</label>
-                <select class="w-36 px-6 py-2 border-blue-400 border-2 rounded-lg ml-5" id="status" name="status"
-                    required>
+                <select class="w-36 px-6 py-2 border-blue-400 border-2 rounded-lg ml-5" id="status" name="status">
+                    <option value="">None</option>
                     <option value="Sudah">Sudah</option>
                     <option value="Belum">Belum</option>
                 </select>
@@ -43,8 +43,8 @@
 
             <div class="form-group grid grid-cols-2 w-20">
                 <label for="bulan">Bulan:</label>
-                <select class="w-36 px-6 py-2 border-blue-400 border-2 rounded-lg ml-5" id="bulan" name="bulan"
-                    required>
+                <select class="w-36 px-6 py-2 border-blue-400 border-2 rounded-lg ml-5" id="bulan" name="bulan">
+                    <option value="">None</option>
                     <option value="1">Januari</option>
                     <option value="2">Februari</option>
                     <option value="3">Maret</option>
@@ -62,8 +62,8 @@
 
             <div class="form-group grid grid-cols-2 w-20">
                 <label for="tahun">Tahun:</label>
-                <select class="w-36 px-6 py-2 border-blue-400 border-2 rounded-lg ml-5" id="tahun" name="tahun"
-                    required>
+                <select class="w-36 px-6 py-2 border-blue-400 border-2 rounded-lg ml-5" id="tahun" name="tahun">
+                    <option value="">None</option>
                     @for ($i = date('Y'); $i >= 2000; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
@@ -172,87 +172,159 @@
             }
         });
 
+        // $(document).ready(function() {
+        //     $('#filterForm').on('click', function(e) {
+        //         e.preventDefault();
+
+        //         var status = $('#status').val();
+        //         var bulan = $('#bulan').val();
+        //         var tahun = $('#tahun').val();
+        //         var rt = $('#rt').val();
+
+        //         $.ajax({
+        //             url: "/dashboard/tagihan/warga",
+        //             method: 'POST',
+        //             data: {
+        //                 rt: rt,
+        //                 status: status,
+        //                 bulan: bulan,
+        //                 tahun: tahun
+        //             },
+        //             success: function(response) {
+        //                 $('#result').empty();
+        //                 if (response.length > 0) {
+        //                     console.log(response);
+        //                     $.each(response, function(index, tagihan) {
+        //                         $('#result').append(
+        //                             `
+        //                         <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
+        //                             <td
+        //                                 class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
+
+        //                                 <a href="/dashboard/tagihans/warga/${tagihan.wargas.id}">
+        //                                     ${tagihan.wargas.nama} </a>
+
+        //                             </td>
+        //                             <td
+        //                                 class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+        //                                 ${tagihan.status}
+        //                             </td>
+        //                             <td
+        //                                 class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+        //                                 ${tagihan.nominal}
+        //                             </td>
+        //                             <td
+        //                                 class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+        //                                 ${tagihan.deskripsi}
+        //                             </td>
+        //                             <td
+        //                                 class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+        //                                 ${tagihan.tanggalBayar}
+        //                             </td>
+        //                             <td
+        //                                 class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+        //                                 ${tagihan.wargas.rts.nama}
+        //                             </td>
+        //                             <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+        //                                 <a href="/dashboard/tagihans/approve/${tagihan.id}"
+        //                                     class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400">Setujui</a>
+        //                                 <a href="/dashboard/tagihans/${tagihan.id}/edit"
+        //                                     class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-600 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:text-yellow-500 dark:hover:text-yellow-400">Update</a>
+
+        //                                 <form action="/dashboard/tagihans/${tagihan.id} " method="post"
+        //                                     class="inline-flex">
+        //                                     @method('delete')
+        //                                     @csrf
+        //                                     <button type="submit" onclick="return confirm('Are you sure delete ?')"
+        //                                         class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">Delete</button>
+        //                                 </form>
+        //                             </td>
+        //                         </tr>
+        //                         `
+        //                         );
+        //                     });
+        //                 } else {
+        //                     $('#result').append( /*HTML*/ `
+        //                     <div class="text-3xl text-center mt-5 mx-auto">
+        //                         Data Tidak Ditemukan!
+        //                     </div>
+        //                 `);
+        //                 }
+        //             }
+        //         });
+        //     });
+        // });
+
         $(document).ready(function() {
-            $('#filterForm').on('click', function(e) {
-                e.preventDefault();
+        $('#filterForm').on('change', function(e) {
+            e.preventDefault();
 
-                var status = $('#status').val();
-                var bulan = $('#bulan').val();
-                var tahun = $('#tahun').val();
-                var rt = $('#rt').val();
+            var status = $('#status').val();
+            var bulan = $('#bulan').val();
+            var tahun = $('#tahun').val();
+            var rt = $('#rt').val();
 
-                $.ajax({
-                    url: "/dashboard/tagihan/warga",
-                    method: 'POST',
-                    data: {
-                        rt: rt,
-                        status: status,
-                        bulan: bulan,
-                        tahun: tahun
-                    },
-                    success: function(response) {
-                        $('#result').empty();
-                        if (response.length > 0) {
-                            console.log(response);
-                            $.each(response, function(index, tagihan) {
-                                $('#result').append(
-                                    `
+            $.ajax({
+                url: "/dashboard/tagihans/filter",
+                method: 'POST',
+                data: {
+                    rt: rt,
+                    status: status,
+                    bulan: bulan,
+                    tahun: tahun
+                },
+                success: function(response) {
+                    $('#result').empty();
+                    if (response.length > 0) {
+                        $.each(response, function(index, tagihan) {
+                            $('#result').append(
+                                `
                                 <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
-
-                                        <a href="/dashboard/tagihans/warga/${tagihan.wargas.id}">
-                                            ${tagihan.wargas.nama} </a>
-
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
+                                        <a href="/dashboard/tagihans/warga/${tagihan.wargas.id}">${tagihan.wargas.nama}</a>
                                     </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+                                        ${tagihan.jenis}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
                                         ${tagihan.status}
                                     </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
                                         ${tagihan.nominal}
                                     </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
                                         ${tagihan.deskripsi}
                                     </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
                                         ${tagihan.tanggalBayar}
                                     </td>
-                                    <td
-                                        class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
                                         ${tagihan.wargas.rts.nama}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                        <a href="/dashboard/tagihans/approve/${tagihan.id}"
-                                            class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400">Setujui</a>
-                                        <a href="/dashboard/tagihans/${tagihan.id}/edit"
-                                            class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-600 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:text-yellow-500 dark:hover:text-yellow-400">Update</a>
-
-                                        <form action="/dashboard/tagihans/${tagihan.id} " method="post"
-                                            class="inline-flex">
+                                        <a href="/dashboard/tagihans/approve/${tagihan.id}" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400">Setujui</a>
+                                        <a href="/dashboard/tagihans/${tagihan.id}/edit" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-yellow-600 hover:text-yellow-800 disabled:opacity-50 disabled:pointer-events-none dark:text-yellow-500 dark:hover:text-yellow-400">Update</a>
+                                        <form action="/dashboard/tagihans/${tagihan.id}" method="post" class="inline-flex">
                                             @method('delete')
                                             @csrf
-                                            <button type="submit" onclick="return confirm('Are you sure delete ?')"
-                                                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">Delete</button>
+                                            <button type="submit" onclick="return confirm('Are you sure delete ?')" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
                                 `
-                                );
-                            });
-                        } else {
-                            $('#result').append( /*HTML*/ `
+                            );
+                        });
+                    } else {
+                        $('#result').append(/*HTML*/`
                             <div class="text-3xl text-center mt-5 mx-auto">
                                 Data Tidak Ditemukan!
                             </div>
                         `);
-                        }
                     }
-                });
+                }
             });
         });
+    });
+
     </script>
 @endsection

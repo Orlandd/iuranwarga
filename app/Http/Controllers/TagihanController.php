@@ -161,25 +161,6 @@ class TagihanController extends Controller
         return Excel::download(new TagihanExport($tagihans), 'pembayaran.xlsx');
     }
 
-    public function filter(Request $request)
-    {
-        $id = $request->input('id');
-        $bulan = $request->input('bulan');
-        $tahun = $request->input('tahun');
-        $status = $request->input('status');
-
-        $tagihan = Tagihan::with('wargas.rts')
-            ->whereHas('wargas', function ($query) use ($id) {
-                $query->where('id', $id);
-            })
-            ->where('status', $status)
-            ->whereMonth('created_at', $bulan)
-            ->whereYear('created_at', $tahun)
-            ->get();
-
-        return response()->json($tagihan);
-    }
-
     public function listFilter(Request $request)
     {
         $status = $request->input('status');
@@ -187,15 +168,66 @@ class TagihanController extends Controller
         $tahun = $request->input('tahun');
         $rt = $request->input('rt');
 
-        $tagihan = Tagihan::with('wargas.rts')
-            ->whereHas('wargas.rts', function ($query) use ($rt) {
+        $tagihan = Tagihan::with('wargas.rts');
+
+        if ($rt) {
+            $tagihan = $tagihan->whereHas('wargas.rts', function ($query) use ($rt) {
                 $query->where('id', $rt);
-            })
-            ->where('status', $status)
-            ->whereMonth('created_at', $bulan)
-            ->whereYear('created_at', $tahun)
-            ->get();
+            });
+        }
+
+        if ($status) {
+            $tagihan = $tagihan->where('status', $status);
+        }
+
+        if ($bulan) {
+            $tagihan = $tagihan->whereMonth('created_at', $bulan);
+        }
+
+        if ($tahun) {
+            $tagihan = $tagihan->whereYear('created_at', $tahun);
+        }
+
+        $tagihan = $tagihan->get();
 
         return response()->json($tagihan);
     }
+
+    // public function filter(Request $request)
+    // {
+    //     $id = $request->input('id');
+    //     $bulan = $request->input('bulan');
+    //     $tahun = $request->input('tahun');
+    //     $status = $request->input('status');
+
+    //     $tagihan = Tagihan::with('wargas.rts')
+    //         ->whereHas('wargas', function ($query) use ($id) {
+    //             $query->where('id', $id);
+    //         })
+    //         ->where('status', $status)
+    //         ->whereMonth('created_at', $bulan)
+    //         ->whereYear('created_at', $tahun)
+    //         ->get();
+
+    //     return response()->json($tagihan);
+    // }
+
+    // public function listFilter(Request $request)
+    // {
+    //     $status = $request->input('status');
+    //     $bulan = $request->input('bulan');
+    //     $tahun = $request->input('tahun');
+    //     $rt = $request->input('rt');
+
+    //     $tagihan = Tagihan::with('wargas.rts')
+    //         ->whereHas('wargas.rts', function ($query) use ($rt) {
+    //             $query->where('id', $rt);
+    //         })
+    //         ->where('status', $status)
+    //         ->whereMonth('created_at', $bulan)
+    //         ->whereYear('created_at', $tahun)
+    //         ->get();
+
+    //     return response()->json($tagihan);
+    // }
 }

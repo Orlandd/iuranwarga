@@ -16,9 +16,9 @@
     @endif
 
     <section class="container mx-6 my-4">
-        <a href="/dashboard/rukun-tetanggas/create" class="px-4 py-2 bg-sky-500 rounded-full text-white">Tambah RT</a>
-        <a href="/dashboard/rukun-tetanggas/export/pdf" class="px-4 py-2 bg-red-500 rounded-full text-white"> Export PDF</a>
-        <a href="/dashboard/rukun-tetanggas/export/excel" class="px-4 py-2 bg-green-500 rounded-full text-white"> Export Excel</a>
+        <a href="/dashboard/rukun-tetanggas/create" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-blue-600 text-white py-2 px-4 hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-500 dark:hover:bg-blue-400">Tambah RT</a>
+        <a href="/dashboard/rukun-tetanggas/export/pdf" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-red-500 text-white py-2 px-4 hover:bg-red-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-red-500 dark:hover:bg-red-400"> Export PDF</a>
+        <a href="/dashboard/rukun-tetanggas/export/excel" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-green-500 text-white py-2 px-4 hover:bg-green-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-green-500 dark:hover:bg-green-400"> Export Excel</a>
     </section>
 
     <section class="container px-3 mt-10">
@@ -47,7 +47,7 @@
                                 @method('delete')
                                 @csrf
                                 <button type="submit" onclick="return confirm('Are you sure delete ?')"
-                                    class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">Delete</button>
+                                    class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400">Delete</button>
                             </form>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
             @endforeach
         </div>
     </section>
-    {{-- 
+    {{--
     <section class="container px-3">
         <div class=" flex flex-col w-full ">
             <div class="m-1.5 overflow-x-auto">

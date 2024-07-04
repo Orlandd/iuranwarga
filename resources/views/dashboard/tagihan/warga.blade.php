@@ -134,7 +134,7 @@
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" onclick="return confirm('Are you sure delete ?')"
-                                                    class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">Delete</button>
+                                                    class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -194,19 +194,19 @@
                                         </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                            ${tagihan.status} 
+                                            ${tagihan.status}
                                         </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                            ${tagihan.nominal} 
+                                            ${tagihan.nominal}
                                         </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                            ${tagihan.deskripsi} 
+                                            ${tagihan.deskripsi}
                                         </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                            ${tagihan.tanggalBayar} 
+                                            ${tagihan.tanggalBayar}
                                         </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">

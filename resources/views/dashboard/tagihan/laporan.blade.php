@@ -16,8 +16,8 @@
         <a href="/dashboard/tagihan/laporan/exportexcel" class="px-4 py-2 bg-sky-500 rounded-full text-white"> Export Excel</a>
     </section> --}}
     <section class="container mx-6 my-4 flex">
-        <a href="/dashboard/tagihan/laporan/exportpdf" class="px-4 py-2 bg-red-500 rounded-full text-white mr-4">Export PDF</a>
-        <a href="/dashboard/tagihan/laporan/exportexcel" class="px-4 py-2 bg-green-500 rounded-full text-white">Export Excel</a>
+        <a href="/dashboard/tagihan/laporan/exportpdf" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-red-500 text-white py-2 px-4 hover:bg-red-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-red-500 dark:hover:bg-red-400">Export PDF</a>
+        <a href="/dashboard/tagihan/laporan/exportexcel" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-green-500 text-white py-2 px-4 hover:bg-green-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-green-500 dark:hover:bg-green-400">Export Excel</a>
     </section>
 
 

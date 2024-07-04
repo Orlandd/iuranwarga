@@ -23,7 +23,7 @@
                 class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white py-2 px-4 hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-500 dark:hover:bg-blue-400">Tambah
                 Warga</a>
             <a href="/dashboard/warga/laporan/"
-                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-sky-300 text-white py-2 px-4 hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-500 dark:hover:bg-blue-400">Laporan
+                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white py-2 px-4 hover:bg-green-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-green-500 dark:hover:bg-green-400">Laporan
                 Data Warga</a>
             <br><br>
 
@@ -130,7 +130,7 @@
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" onclick="return confirm('Are you sure delete ?')"
-                                                    class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400">Delete</button>
+                                                    class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-red-600 hover:text-red-800 disabled:opacity-50 disabled:pointer-events-none dark:text-red-500 dark:hover:text-red-400">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -262,10 +262,10 @@
                                             ${warga.tanggalLahir}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                           
+
                                             ${rtsNama}
-                                  
-                                            
+
+
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                                             <a href="/dashboard/wargas/${warga.id}" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400">Detail</a>

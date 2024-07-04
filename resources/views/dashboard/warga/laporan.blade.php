@@ -23,7 +23,7 @@
                 class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white py-2 px-4 hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:bg-blue-500 dark:hover:bg-blue-400">Export Excel</a>
             <br><br> --}}
             <a id="exportPDFLink" href="{{ route('export.pdf', ['rt' => 'all']) }}"
-                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white py-2 px-4 hover:bg-blue-800">Export PDF</a>
+                class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-500 text-white py-2 px-4 hover:bg-blue-800">Export PDF</a>
              <a id="exportExcelLink" href="{{ route('export.excel', ['rt' => 'all']) }}"
                 class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white py-2 px-4 hover:bg-green-800">Export Excel</a>
 

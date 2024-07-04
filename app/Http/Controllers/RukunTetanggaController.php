@@ -102,8 +102,9 @@ class RukunTetanggaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RukunTetangga $rukunTetangga)
-    {
-        //
+    public function destroy(RukunTetangga $rukunTetangga){
+        $rukunTetangga->delete();
+
+        return redirect("/dashboard/rukun-tetanggas")->with("status", 'Data RT telah dihapus!');
     }
 }

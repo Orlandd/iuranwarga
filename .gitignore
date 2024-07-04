@@ -6,6 +6,7 @@
 !/public/storage/warga/
 /public/storage/warga/*
 !/public/storage/warga/default.jpg
+!/public/storage/image.jpg
 /storage/*.key
 /vendor
 .env

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Pengeluaran;
 use App\Http\Requests\StorePengeluaranRequest;
 use App\Http\Requests\UpdatePengeluaranRequest;
@@ -19,7 +20,7 @@ class PengeluaranController extends Controller
     public function index()
     {
         // Fetch all pengeluarans from all lingkungans
-        $pengeluarans = Pengeluaran::with('lingkungans.rts')->get();
+        $pengeluarans = Pengeluaran::with('lingkungans')->get();
 
         // Sum pengeluaran nominal by lingkungan
         $groupedPengeluarans = $pengeluarans->groupBy('lingkungan_id')->map(function ($row) {
@@ -34,12 +35,11 @@ class PengeluaranController extends Controller
             return [
                 'nama' => $lingkungan->nama,
                 'total' => $groupedPengeluarans[$lingkungan->id] ?? 0,
-                'rt_id' => $lingkungan->rts->id
             ];
         });
 
         while (count($chartData) < 10) {
-            $chartData->push(['nama' => '', 'total' => 0, 'rt_id' => null]);
+            $chartData->push(['nama' => '', 'total' => 0]);
         }
 
         // Fetch all RTs
@@ -51,6 +51,7 @@ class PengeluaranController extends Controller
             'rts' => $rts, // Menambahkan data RT ke tampilan
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -127,11 +128,15 @@ class PengeluaranController extends Controller
         return redirect("/dashboard/pengeluarans")->with("status", 'Kegiatan telah dihapus!');
     }
 
-    public function export()
+    public function exportPDF()
     {
         $pengeluarans = Pengeluaran::with('lingkungans')->get();
         $pdf = PDF::loadView('pdf.export-pengeluaran', ['pengeluarans' => $pengeluarans]);
         return $pdf->download('pengeluaran.pdf');
     }
 
+    public function exportExcel()
+    {
+        return Excel::download(new PengeluaranExport, 'pengeluaran.xlsx');
+    }
 }

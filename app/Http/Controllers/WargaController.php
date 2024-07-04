@@ -47,7 +47,7 @@ class WargaController extends Controller
 
         $validate = $request->validate([
             'nama' => ['required', 'string'],
-            'nik' => ['required', 'integer', 'unique:wargas,nik'],
+            'nik' => ['required', 'integer', 'unique:wargas,nik', 'digits:16'],
             'kk' => ['required', 'integer'],
             'gender' => ['required',],
             'agama' => ['required',],

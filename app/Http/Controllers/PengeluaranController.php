@@ -20,7 +20,7 @@ class PengeluaranController extends Controller
     public function index()
     {
         // Fetch all pengeluarans from all lingkungans
-        $pengeluarans = Pengeluaran::with('lingkungans')->get();
+        $pengeluarans = Pengeluaran::with('lingkungans.rts')->get();
 
         // Sum pengeluaran nominal by lingkungan
         $groupedPengeluarans = $pengeluarans->groupBy('lingkungan_id')->map(function ($row) {
@@ -35,11 +35,12 @@ class PengeluaranController extends Controller
             return [
                 'nama' => $lingkungan->nama,
                 'total' => $groupedPengeluarans[$lingkungan->id] ?? 0,
+                'rt_id' => $lingkungan->rts->id
             ];
         });
 
         while (count($chartData) < 10) {
-            $chartData->push(['nama' => '', 'total' => 0]);
+            $chartData->push(['nama' => '', 'total' => 0, 'rt_id' => null]);
         }
 
         // Fetch all RTs

@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateRukunTetanggaRequest;
 use App\Models\Lingkungan;
 use App\Models\Pengeluaran;
 use App\Models\Warga;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RukunTetanggaController extends Controller
 {
@@ -54,6 +56,9 @@ class RukunTetanggaController extends Controller
         // dd(Pengeluaran::whereHas('lingkungans.rts', function ($query) use ($rukunTetangga) {
         //     $query->where('id', $rukunTetangga->id);
         // })->with('lingkungans.rts')->get());
+        if (!$rukunTetangga || !$rukunTetangga->warga) {
+            return redirect()->back()->withErrors(['Data tidak ditemukan']);
+        }
         return view('dashboard.rt.detail', [
             'rt' => RukunTetangga::with('warga')->find($rukunTetangga->id),
             'pengeluarans' => Pengeluaran::whereHas('lingkungans.rts', function ($query) use ($rukunTetangga) {
@@ -97,6 +102,19 @@ class RukunTetanggaController extends Controller
         $rukunTetangga->save();
 
         return redirect("/dashboard/rukun-tetanggas")->with("status", 'Data RT telah diupdate!');
+    }
+
+    public function exportPDF()
+    {
+        $rukunTetangga = RukunTetangga::with('wargas.rts')->get();
+        $pdf = Pdf::loadView('pdf.export-pembayaran', ['tagihans' => $rukunTetangga]);
+        return $pdf->download('RT.pdf');
+    }
+
+    public function exportExcel()
+    {
+        $rukunTetangga = RukunTetangga::with('wargas.rts')->get();
+        return Excel::download(new RukunTetanggaExport($rukunTetangga), 'RT.xlsx');
     }
 
     /**

@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
     Route::resource('/dashboard/rukun-tetanggas', RukunTetanggaController::class);
+    Route::get('/dashboard/rukun-tetanggas/exportpdf', [RukunTetanggaController::class, 'exportPDF']);
+    Route::get('/dashboard/rukun-tetanggas/exportexcel', [RukunTetanggaController::class, 'exportExcel']);
     Route::resource('/dashboard/wargas', WargaController::class);
     Route::resource('/dashboard/lingkungans', LingkunganController::class);
     Route::resource('/dashboard/pengeluarans', PengeluaranController::class);

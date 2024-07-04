@@ -109,7 +109,7 @@ class RukunTetanggaController extends Controller
     {
         $rukunTetangga = RukunTetangga::with('wargas.rts')->get();
         $pdf = Pdf::loadView('pdf.export-pembayaran', ['tagihans' => $rukunTetangga]);
-        return $pdf->download('RT.pdf');
+        return $pdf->download('Rukuntetangga.pdf');
     }
 
     public function exportExcel()

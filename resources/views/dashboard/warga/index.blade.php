@@ -112,7 +112,12 @@
                                         </td>
                                         <td
                                             class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                            {{ $warga->rts->nama }}
+
+                                            @if (isset($warga->rts->nama))
+                                                {{ $warga->rts->nama }}
+                                            @else
+                                            @endif
+
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                                             <a href="/dashboard/wargas/{{ $warga->id }}"
@@ -228,6 +233,11 @@
                             let html = '';
                             if (data.length > 0) {
                                 $.each(data, function(index, warga) {
+
+                                    let rtsNama = warga.rts.nama !== null ? warga.rts
+                                        .nama : '-';
+
+
                                     $('#result').append(`
                                     <tr class="hover:bg-gray-100 dark:hover:bg-neutral-700">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
@@ -252,7 +262,10 @@
                                             ${warga.tanggalLahir}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-sm text-gray-800 dark:text-neutral-200">
-                                            ${warga.rts.nama}
+                                           
+                                            ${rtsNama}
+                                  
+                                            
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                                             <a href="/dashboard/wargas/${warga.id}" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-green-600 hover:text-green-800 disabled:opacity-50 disabled:pointer-events-none dark:text-green-500 dark:hover:text-green-400">Detail</a>

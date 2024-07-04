@@ -9,6 +9,7 @@ use App\Http\Requests\StorePengeluaranRequest;
 use App\Http\Requests\UpdatePengeluaranRequest;
 use App\Models\Lingkungan;
 use App\Exports\PengeluaranExport;
+use App\Models\RukunTetangga;
 
 class PengeluaranController extends Controller
 {
@@ -18,12 +19,8 @@ class PengeluaranController extends Controller
      */
     public function index()
     {
-        // return view('dashboard.pengeluaran.index', [
-        //     'pengeluarans' => Pengeluaran::with('lingkungans')->get()
-        // ]);
-
         // Fetch all pengeluarans from all lingkungans
-        $pengeluarans = Pengeluaran::with('lingkungans')->get();
+        $pengeluarans = Pengeluaran::with('lingkungans.rts')->get();
 
         // Sum pengeluaran nominal by lingkungan
         $groupedPengeluarans = $pengeluarans->groupBy('lingkungan_id')->map(function ($row) {
@@ -38,18 +35,24 @@ class PengeluaranController extends Controller
             return [
                 'nama' => $lingkungan->nama,
                 'total' => $groupedPengeluarans[$lingkungan->id] ?? 0,
+                'rt_id' => $lingkungan->rts->id
             ];
         });
 
         while (count($chartData) < 10) {
-            $chartData->push(['nama' => '', 'total' => 0]);
+            $chartData->push(['nama' => '', 'total' => 0, 'rt_id' => null]);
         }
+
+        // Fetch all RTs
+        $rts = RukunTetangga::all();
 
         return view('dashboard.pengeluaran.index', [
             'pengeluarans' => $pengeluarans,
-            'chartData' => $chartData
+            'chartData' => $chartData,
+            'rts' => $rts, // Menambahkan data RT ke tampilan
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

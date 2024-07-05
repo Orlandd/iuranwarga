@@ -251,8 +251,8 @@
                                 agamaChart.destroy();
                             }
 
-                            console.log(
-                                response); // Memperbaiki log untuk menampilkan respons yang diterima
+                            // console.log(
+                            //     response); // Memperbaiki log untuk menampilkan respons yang diterima
 
                             if (response.length > 0) {
                                 let labels = [];
@@ -305,8 +305,8 @@
                                 genderChart.destroy();
                             }
 
-                            console.log(
-                                response); // Memperbaiki log untuk menampilkan respons yang diterima
+                            // console.log(
+                            //     response); // Memperbaiki log untuk menampilkan respons yang diterima
 
                             if (response.length > 0) {
                                 let labels = [];
@@ -359,8 +359,8 @@
                                 wargaChart.destroy();
                             }
 
-                            console.log(
-                                response); // Memperbaiki log untuk menampilkan respons yang diterima
+                            // console.log(
+                            //     response); // Memperbaiki log untuk menampilkan respons yang diterima
 
                             if (response.length > 0) {
                                 let labels = [];

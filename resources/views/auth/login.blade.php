@@ -80,6 +80,13 @@
 
     <div class="flex justify-center items-center h-screen bg-white">
         <div class="w-96 p-6 shadow-lg bg-white rounded-md">
+            <div class="px-6 text-center">
+                <div class="flex-none text-xl bg-cover rounded-full mx-auto w-20 h-20 font-semibold dark:text-white"
+                    style="background-image: url('/storage/image.jpg')"></div>
+                <p class="flex-none text-xl font-semibold text-center dark:text-white" aria-label="Brand">
+                    SI-MALING
+                    RT</p>
+            </div>
             <h1 class="text-3xl block text-center font-semibold">Log in</h1>
             <hr class="mt-3">
             <form action="{{ route('login') }}" method="post">
@@ -97,12 +104,17 @@
                         class="rounded-full border w-full text-base px-3 py-2 outline-2 ring-0 border-gray-600"
                         placeholder="Enter Password..." name="password" required autocomplete="current-password" />
                 </div>
+
                 <input class="form-check-input" type="checkbox" name="remember" id="remember"
                     {{ old('remember') ? 'checked' : '' }}>
 
                 <label class="form-check-label" for="remember">
                     {{ __('Remember Me') }}
                 </label>
+                <div class="mt-3">
+                    <a href="/register" class="text-indigo-800 font-semibold text-center">Doesn't haven an account?
+                        Regiser</a>
+                </div>
                 <div class="mt-3">
                     <button type="submit"
                         class="border-2 border-blue-500 bg-blue-500 text-white py-1 w-full rounded-full font-semibold">Log

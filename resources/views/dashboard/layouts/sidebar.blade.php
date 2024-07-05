@@ -22,7 +22,7 @@
     <div class="px-6 text-center">
         <div class="flex-none text-xl bg-cover rounded-full mx-auto w-20 h-20 font-semibold dark:text-white"
             style="background-image: url('/storage/image.jpg')"></div>
-        <a class="flex-none text-xl font-semibold text-center dark:text-white" href="#"
+        <a class="flex-none text-xl font-semibold text-center dark:text-white" href="/dashboard"
             aria-label="Brand">SI-MALING
             RT</a>
     </div>

@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div
-                class="mt-5 flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg">
+                class="mt-5 flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg shadow-orange-500/30">
                 <h2 class="text-yellow-500 text-lg font-semibold mb-4">Jumlah Warga</h2>
                 <div class="w-full bg-white">
                     <canvas id="warga" class="md:w-full mx-auto"></canvas>
@@ -64,26 +64,30 @@
         </div>
         <div class="container mx-auto mt-8 px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-                <div class="flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg">
+                <div
+                    class="flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg shadow-orange-500/30">
                     <h2 class="text-yellow-500 text-lg font-semibold mb-4">Pengeluaran</h2>
                     <div class="w-full h-64 bg-white" id="grafik-pengeluaran">
                         <canvas id="pengeluaran"></canvas>
                     </div>
                 </div>
-                <div class="flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg">
+                <div
+                    class="flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg shadow-orange-500/30">
                     <h2 class="text-yellow-500 text-lg font-semibold mb-4">Pemasukan</h2>
                     <div class="w-full h-64 bg-white">
                         <canvas id="pemasukan"></canvas>
                     </div>
                 </div>
 
-                <div class="flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg">
+                <div
+                    class="flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg shadow-orange-500/30">
                     <h2 class="text-yellow-500 text-lg font-semibold mb-4">Agama</h2>
                     <div class="w-full h-64 bg-white">
                         <canvas id="agama" class="mx-auto"></canvas>
                     </div>
                 </div>
-                <div class="flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg">
+                <div
+                    class="flex flex-col justify-center items-center border-2 border-yellow-500 p-4 rounded-2xl shadow-lg shadow-orange-500/30">
                     <h2 class="text-yellow-500 text-lg font-semibold mb-4">Gender</h2>
                     <div class="w-full h-64 bg-white">
                         <canvas id="gender" class="mx-auto"></canvas>

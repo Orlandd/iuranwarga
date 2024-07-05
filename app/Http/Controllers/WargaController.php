@@ -48,7 +48,7 @@ class WargaController extends Controller
         $validate = $request->validate([
             'nama' => ['required', 'string'],
             'nik' => ['required', 'integer', 'unique:wargas,nik', 'digits:16'],
-            'kk' => ['required', 'integer'],
+            'kk' => ['required', 'integer', 'digits:16'],
             'gender' => ['required',],
             'agama' => ['required',],
             'tempatLahir' => ['required', 'string'],
@@ -114,7 +114,7 @@ class WargaController extends Controller
 
         $validate = $request->validate([
             'nama' => ['required', 'string'],
-            'kk' => ['required', 'integer'],
+            'kk' => ['required', 'integer', 'digits:16'],
             'gender' => ['required',],
             'agama' => ['required',],
             'tempatLahir' => ['required', 'string'],
@@ -124,7 +124,7 @@ class WargaController extends Controller
         ]);
 
         if ($request->nik !== $warga->nik) {
-            $rule['nik'] = ['required', 'integer', 'unique:wargas,nik'];
+            $rule['nik'] = ['required', 'integer', 'unique:wargas,nik', 'digits:16'];
             $validatedData = $request->validate($rule);
 
             $warga->nik = $request->nik;

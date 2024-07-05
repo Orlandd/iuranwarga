@@ -19,7 +19,6 @@
         <img src="/storage/warga/{{ $warga->image }}" class="rounded-xl w-28 mx-auto" alt="">
     </div>
 
-
     <section class="container mx-auto px-3">
         <form action="/dashboard/wargas/{{ $warga->id }}" class="p-6 bg-white rounded-lg shadow-md dark:bg-gray-800 m-3"
             method="post" enctype="multipart/form-data">
@@ -65,13 +64,8 @@
             @enderror
             <select id="gender" name="gender"
                 class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-
-                <option selected="Perempuan" value="Perempuan">Perempuan
-                </option>
-
-                <option selected="Laki Laki" value="Laki Laki">Laki Laki
-                </option>
-
+                <option value="Perempuan" {{ $warga->gender == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                <option value="Laki Laki" {{ $warga->gender == 'Laki Laki' ? 'selected' : '' }}>Laki Laki</option>
             </select><br>
 
             <label for="agama">Agama</label><br>
@@ -84,30 +78,14 @@
             @enderror
             <select id="agama" name="agama"
                 class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-
-                <option selected="Islam" value="Islam">Islam
-                </option>
-
-                <option selected="Protestan" value="Protestan">Protestan
-                </option>
-
-                <option selected="Katolik" value="Katolik">Katolik
-                </option>
-
-                <option selected="Hindu" value="Hindu">Hindu
-                </option>
-
-                <option selected="Budha" value="Budha">Budha
-                </option>
-
-                <option selected="Konghucu" value="Konghucu">Konghucu
-                </option>
-
-                <option selected="Lainnya" value="Lainnya">Lainnya
-                </option>
-
+                <option value="Islam" {{ $warga->agama == 'Islam' ? 'selected' : '' }}>Islam</option>
+                <option value="Protestan" {{ $warga->agama == 'Protestan' ? 'selected' : '' }}>Protestan</option>
+                <option value="Katolik" {{ $warga->agama == 'Katolik' ? 'selected' : '' }}>Katolik</option>
+                <option value="Hindu" {{ $warga->agama == 'Hindu' ? 'selected' : '' }}>Hindu</option>
+                <option value="Budha" {{ $warga->agama == 'Budha' ? 'selected' : '' }}>Budha</option>
+                <option value="Konghucu" {{ $warga->agama == 'Konghucu' ? 'selected' : '' }}>Konghucu</option>
+                <option value="Lainnya" {{ $warga->agama == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
             </select><br>
-
 
             <label for="tempatLahir">Tempat Lahir</label><br>
             @error('tempatLahir')
@@ -140,11 +118,11 @@
             <select id="rukun_tetangga_id" name="rukun_tetangga_id"
                 class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 @foreach ($rts as $rt)
-                    <option selected="{{ $rt->nama }}" value="{{ $rt->id }}">{{ $rt->nama }}
-                    </option>
+                    <option value="{{ $rt->id }}" {{ $warga->rukun_tetangga_id == $rt->id ? 'selected' : '' }}>
+                        {{ $rt->nama }}</option>
                 @endforeach
-
             </select><br>
+
             <label for="image">Foto</label><br>
             @error('image')
                 <span class="text-sm text-red-500" role="alert">
@@ -157,7 +135,6 @@
             <br>
 
             <button type="submit" class="py-2 px-3 rounded-lg bg-sky-500">Submit</button>
-
         </form>
     </section>
 @endsection

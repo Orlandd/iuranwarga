@@ -57,6 +57,7 @@
             <h4 class="text-2xl font-semibold text-black mb-6 text-left">Data RT</h4>
             <select id="rt"
                 class="py-3 px-4 pe-9 block lg:w-1/2 w-full border-2 border-yellow-500 rounded-full text-sm bg-white dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600">
+                <option value="all">Semua RT</option>
                 @foreach ($rts as $rt)
                     <option value="{{ $rt->id }}">{{ $rt->nama }}</option>
                 @endforeach

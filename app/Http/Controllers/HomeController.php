@@ -64,47 +64,63 @@ class HomeController extends Controller
 
     public function pemasukan(Request $request)
     {
-
         $id = $request->rt;
 
         // Query to get the sum of 'nominal' grouped by month and year for the given RTS id
         $pemasukan = Tagihan::with('wargas.rts')
-            ->whereHas('wargas.rts', function ($query) use ($id) {
-                $query->where('id', $id);
+            ->when($id !== 'all', function ($query) use ($id) {
+                // If 'rt' is not 'all', filter by the specific RT value
+                $query->whereHas('wargas.rts', function ($subQuery) use ($id) {
+                    $subQuery->where('id', $id);
+                });
             })
             ->where('status', 'sudah')
-            ->select(DB::raw('YEAR(created_at) as year'), DB::raw('MONTH(created_at) as month'), DB::raw('SUM(nominal) as total_nominal'))
+            ->select(
+                DB::raw('YEAR(created_at) as year'),
+                DB::raw('MONTH(created_at) as month'),
+                DB::raw('SUM(nominal) as total_nominal')
+            )
             ->groupBy(DB::raw('YEAR(created_at)'), DB::raw('MONTH(created_at)'))
             ->get();
 
         return response()->json($pemasukan);
     }
 
+
     public function pengeluaran(Request $request)
     {
         $id = $request->rt;
 
-        $lingkungans = Lingkungan::with('rts', 'pengeluarans')->where('rukun_tetangga_id', $id)->get();
+        // Get Lingkungans based on the 'rt' parameter
+        $lingkungans = Lingkungan::with('rts', 'pengeluarans')
+            ->when($id !== 'all', function ($query) use ($id) {
+                // If 'rt' is not 'all', filter by the specific RT value
+                $query->whereHas('rts', function ($subQuery) use ($id) {
+                    $subQuery->where('id', $id);
+                });
+            })
+            ->get();
 
+        // Calculate total pengeluaran for each lingkungan
         $lingkungans->each(function ($lingkungan) {
             $totalPengeluaran = $lingkungan->pengeluarans->sum('nominal');
             $lingkungan->total_pengeluaran = $totalPengeluaran;
         });
 
-        // $pengeluaran = Pengeluaran::whereHas('lingkungans.rts', function ($query) use ($id) {
-        //     $query->where('id', $id);
-        // })->with('lingkungans.rts')->get();
-
         return response()->json($lingkungans);
     }
+
 
     public function agama(Request $request)
     {
         $id = $request->rt;
 
-        // Mengambil jumlah warga berdasarkan agama yang memiliki RT tertentu
-        $jumlahPerAgama = Warga::whereHas('rts', function ($query) use ($id) {
-            $query->where('id', $id); // Sesuaikan dengan nama kolom yang sesuai
+        // Query to get the number of residents based on religion
+        $jumlahPerAgama = Warga::when($id !== 'all', function ($query) use ($id) {
+            // If 'rt' is not 'all', filter by the specific RT value
+            $query->whereHas('rts', function ($subQuery) use ($id) {
+                $subQuery->where('id', $id);
+            });
         })
             ->select('agama', DB::raw('count(*) as jumlah'))
             ->groupBy('agama')
@@ -117,9 +133,12 @@ class HomeController extends Controller
     {
         $id = $request->rt;
 
-        // Mengambil jumlah warga berdasarkan agama yang memiliki RT tertentu
-        $gender = Warga::whereHas('rts', function ($query) use ($id) {
-            $query->where('id', $id); // Sesuaikan dengan nama kolom yang sesuai
+        // Query to get the number of residents based on gender
+        $gender = Warga::when($id !== 'all', function ($query) use ($id) {
+            // If 'rt' is not 'all', filter by the specific RT value
+            $query->whereHas('rts', function ($subQuery) use ($id) {
+                $subQuery->where('id', $id);
+            });
         })
             ->select('gender', DB::raw('count(*) as jumlah'))
             ->groupBy('gender')
@@ -127,6 +146,7 @@ class HomeController extends Controller
 
         return response()->json($gender);
     }
+
 
     public function warga(Request $request)
     {

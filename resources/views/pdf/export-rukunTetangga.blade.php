@@ -46,7 +46,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $rt->nama }}</td>
-                    <td>{{ optional($rt->warga->first())->nama ?? 'Tidak ada Ketua' }}</td>
+                    <td>{{ optional($rt->warga)->nama ?? 'Tidak ada Ketua' }}</td>
                 </tr>
             @endforeach
         </tbody>

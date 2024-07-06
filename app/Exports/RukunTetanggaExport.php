@@ -37,7 +37,7 @@ class RukunTetanggaExport implements FromCollection, WithHeadings, WithMapping, 
     {
         return [
             $rukunTetangga->nama,
-            optional($rukunTetangga->warga->first())->nama ?? 'Tidak ada Ketua'
+            optional($rukunTetangga->warga)->nama ?? 'Tidak ada Ketua'
         ];
     }
 
